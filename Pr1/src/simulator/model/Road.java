@@ -51,8 +51,8 @@ public abstract class Road extends SimulatedObject {
 		_destJunc = destJunc;
 		_weather = weather;
 		
-		_srcJunc.addOutGoingRoad(this);
-		_destJunc.addIncommingRoad(this);
+		_srcJunc.addOutgoingRoad(this);
+		_destJunc.addIncomingRoad(this);
 	}
 	
 	

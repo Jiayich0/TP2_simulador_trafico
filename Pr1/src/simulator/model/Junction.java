@@ -11,35 +11,38 @@ import org.json.JSONObject;
 public class Junction extends SimulatedObject {
 	
 	private List<Road> _incomingRoads;
-	private Map<Junction,Road> _outgoingRoads;
 	private List<List<Vehicle>> _queues;
+	private Map<Road, List<Vehicle>> _queueByRoad;
+	private Map<Junction,Road> _outgoingRoads;
 	private	int _greenLightIndex;
 	private int _lastSwitchingTime;
-	private LightSwitchingStrategy _lightSwitchingStrategy;
-	private DequeuingStrategy _dequeuingStrategy;
+	private LightSwitchingStrategy _lsStrategy;
+	private DequeuingStrategy _dqStrategy;
 	private int _x;
 	private int _y;
 	
 	
-	Junction(String id, LightSwitchStrategy lsStrategy, DequeingStrategy dqStrategy, int xCoor, int yCoor) {
+	Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
 		super(id);
 		_incomingRoads = new ArrayList<>();
 		_outgoingRoads = new HashMap<>();
 		_queues = new ArrayList<>();
+		_queueByRoad = new HashMap<>();
 		_greenLightIndex = -1;
 		_lastSwitchingTime = 0;
 		
 		if (lsStrategy == null) {
-			throw new IllegalArgumentException("por hacer en Junction.java -> constructora -> lsStrategy");
+			throw new IllegalArgumentException("ERROR: La estrategia de semáforos no puede ser nula.");
 		}
 		if (dqStrategy == null) {
-			throw new IllegalArgumentException("por hacer en Junction.java -> constructora -> dqStrategy");
+			throw new IllegalArgumentException("ERROR: La estrategia de extracción de vehículos no puede ser nula.");
 		}
 		if (xCoor < 0 || yCoor < 0) {
-			throw new IllegalArgumentException("por hacer en Junction.java -> constructora -> coords");
+			throw new IllegalArgumentException("ERROR: Las coordenadas del cruce deben ser no negativas.");
 		}
-		_lightSwitchingStrategy = lsStrategy;
-		_dequeuingStrategy = dqStrategy;
+		
+		_lsStrategy = lsStrategy;
+		_dqStrategy = dqStrategy;
 		_x = xCoor;
 		_y = yCoor;
 	}
@@ -61,47 +64,67 @@ public class Junction extends SimulatedObject {
         }
 		
 		JSONArray queuesArray = new JSONArray();
-		for (int i = 0; i < _incomingRoads.size(); i++) {
+		for (Road road : _incomingRoads) {
 			JSONObject queueObj = new JSONObject();
-			
-			Road road = _incomingRoads.get(i);
-	        List<Vehicle> vehicleQueue = _queues.get(i);
-	        
-	        queueObj.put("road", road.getId());
-	        
-	        JSONArray vehiclesArray = new JSONArray();
-	        for (Vehicle v : vehicleQueue) {
-	            vehiclesArray.put(v.getId());
-	        }
-	        
-	        queueObj.put("vehicles", vehiclesArray);
-	        queuesArray.put(queueObj);
+			queueObj.put("road", road.getId());
+
+			JSONArray vehiclesArray = new JSONArray();
+			List<Vehicle> queue = _queueByRoad.get(road);
+			if (queue != null) {
+				for (Vehicle v : queue) {
+					vehiclesArray.put(v.getId());
+				}
+				queueObj.put("vehicles", vehiclesArray);
+			}
+			queuesArray.put(queueObj);
 		}
-		
+
 		js.put("queues", queuesArray);
 		return js;
 	}
 
 	
 	// Métodos
-	void addIncommingRoad(Road r) {
+	void addIncomingRoad(Road r) {
 		if(r.getDest() != this) {
 			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como destino.");
 		}
+		
+		//if (_incomingRoads.contains(r)) {
+	    //    throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " ya está registrada como entrante.");
+	    //}
+		
 		_incomingRoads.add(r);
-		_queues.add(null);
+		List<Vehicle> queue = new ArrayList<>();
+		_queues.add(queue);
+		_queueByRoad.put(r, queue);
 	}
 	
-	void addOutGoingRoad(Road r) {
+	void addOutgoingRoad(Road r) {
+		if(r.getSrc() != this) {
+			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como origen.");
+		}
 		
+		if(_outgoingRoads.containsKey(r.getDest())) {
+			throw new IllegalArgumentException("ERROR: Ya existe una carretera saliente hacia el cruce " + r.getDest().getId());
+		}
+		
+		_outgoingRoads.put(r.getDest(), r);
 	}
 	
 	void enter(Vehicle v) {
+		Road road = v.getRoad();
 		
+		if (!_queueByRoad.containsKey(road)) {
+			throw new IllegalArgumentException("ERROR: El vehículo " + v.getId() + " no pertenece a una carretera válida.");
+		}
+		
+		_queueByRoad.get(road).add(v);						// Añade el vehiculo  a la cola de la carretera
+		//lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
 	}
 	
 	Road roadTo(Junction j) {
-		return null;
+		return _outgoingRoads.get(j);
 	}
 	
 }

@@ -65,7 +65,8 @@ public class Main {
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
 		if (line.hasOption("h")) {
 			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp(MainForStudents.class.getCanonicalName(), cmdLineOptions, true);
+			System.out.print("main -> parseHelpOption -> MainForStudents no existe");
+			//formatter.printHelp(MainForStudents.class.getCanonicalName(), cmdLineOptions, true);
 			System.exit(0);
 		}
 	}
