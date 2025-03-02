@@ -44,7 +44,24 @@ public class Vehicle extends SimulatedObject {
 	
 	// Herencia
 	void advance(int time) {
-
+		if(_status != VehicleStatus.TRAVELING) {
+			return;
+		}
+		int oldLocation = _location;
+		_location = Math.min(_location + _speed, _road.getLength());
+		
+		int travelDistance = _location - oldLocation;
+		_totalDistanceTraveled += travelDistance;
+		
+		int travelContamination = _contClass * travelDistance;
+		_totalContamination += travelContamination;
+		_road.addContamination(travelContamination);
+		
+		if(_location >= _road.getLength()) {
+			_status = VehicleStatus.WAITING;
+			_speed = 0;
+			_road.getDest().enter(this);
+		}
 	}
 
 	public JSONObject report() {

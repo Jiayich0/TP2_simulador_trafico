@@ -114,6 +114,10 @@ public abstract class Road extends SimulatedObject {
 		return _destJunc;
 	}
 	
+	public int getLength() {
+		return _length;
+	}
+	
 	public int getMaxSpeed() {
 		return _maxSpeed;
 	}

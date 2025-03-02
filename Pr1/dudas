@@ -8,7 +8,7 @@
 ----------------------------------------------------------------------
 	Vehicle			x		check: 	setStatus()
 							check:	report()	
-							do:		advance()
+							do:		advance() apartado Junction
 							do:		moveToNextRoad()
 ----------------------------------------------------------------------
 	Road			x		check:	constructor
