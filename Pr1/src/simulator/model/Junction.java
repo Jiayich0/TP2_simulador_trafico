@@ -85,7 +85,11 @@ public class Junction extends SimulatedObject {
 	
 	// Métodos
 	void addIncommingRoad(Road r) {
-		
+		if(r.getDest() != this) {
+			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como destino.");
+		}
+		_incomingRoads.add(r);
+		_queues.add(null);
 	}
 	
 	void addOutGoingRoad(Road r) {

@@ -11,7 +11,6 @@
 	Road			x		check:	constructor
 							do:		advance()
 							check:	setWeather()
-							check:	report()
 							check:	exit()
 ----------------------------------------------------------------------
 	InterCityRoad	-	
