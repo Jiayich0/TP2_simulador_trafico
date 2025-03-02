@@ -6,10 +6,7 @@
 ----------------------------------------------------------------------
 	MODEL
 ----------------------------------------------------------------------
-	Vehicle			x		check: 	setStatus()
-							check:	report()	
-							do:		advance() apartado Junction
-							do:		moveToNextRoad()
+	Vehicle			-
 ----------------------------------------------------------------------
 	Road			x		check:	constructor
 							do:		advance()
