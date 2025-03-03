@@ -50,7 +50,23 @@ public class Junction extends SimulatedObject {
 	
 	// Herencia
 	void advance(int time) {
+		if (!_incomingRoads.isEmpty() && _greenLightIndex != -1) {
+			Road greenRoad = _incomingRoads.get(_greenLightIndex);
+			List<Vehicle> vehiclesToMove = _dqStrategy.dequeue(_queueByRoad.get(greenRoad));
+			
+			for (Vehicle v : vehiclesToMove) {
+				v.moveToNextRoad();
+			}
+			_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
+			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); // no se si hace falta borrar de ambos, map y list
+		}
+		
+		int nextGreen = _lsStrategy.chooseNextGreen(_incomingRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);
 
+	    if (nextGreen != _greenLightIndex) {
+	        _greenLightIndex = nextGreen;
+	        _lastSwitchingTime = time;
+	    }
 	}
 
 	public JSONObject report() {
@@ -86,7 +102,7 @@ public class Junction extends SimulatedObject {
 	
 	// Métodos
 	void addIncomingRoad(Road r) {
-		if(r.getDest() != this) {
+		if(!r.getDest().equals(this)) {
 			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como destino.");
 		}
 		
@@ -119,6 +135,7 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("ERROR: El vehículo " + v.getId() + " no pertenece a una carretera válida.");
 		}
 		
+		_queues.get(_incomingRoads.indexOf(road)).add(v);
 		_queueByRoad.get(road).add(v);						// Añade el vehiculo  a la cola de la carretera
 		//lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
 	}
