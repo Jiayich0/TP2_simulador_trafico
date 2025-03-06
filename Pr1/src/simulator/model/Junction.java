@@ -50,7 +50,7 @@ public class Junction extends SimulatedObject {
 	
 	// Herencia
 	void advance(int time) {
-		if (!_incomingRoads.isEmpty() && _greenLightIndex != -1) {
+		if (_greenLightIndex != -1 && !_incomingRoads.isEmpty() ) {
 			Road greenRoad = _incomingRoads.get(_greenLightIndex);
 			List<Vehicle> vehiclesToMove = _dqStrategy.dequeue(_queueByRoad.get(greenRoad));
 			
@@ -109,6 +109,7 @@ public class Junction extends SimulatedObject {
 		//if (_incomingRoads.contains(r)) {
 	    //    throw new IllegalArgumentException("[E] La carretera " + r.getId() + " ya está registrada como entrante");
 	    //}
+		// preguntar al profe
 		
 		_incomingRoads.add(r);					// Añade a la lista
 		List<Vehicle> queue = new ArrayList<>();
