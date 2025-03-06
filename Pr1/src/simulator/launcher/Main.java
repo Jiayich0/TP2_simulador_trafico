@@ -67,6 +67,7 @@ public class Main {
 			HelpFormatter formatter = new HelpFormatter();
 			System.out.print("main -> parseHelpOption -> MainForStudents no existe");
 			//formatter.printHelp(MainForStudents.class.getCanonicalName(), cmdLineOptions, true);
+			formatter.printHelp(Main.class.getCanonicalName(), cmdLineOptions, true);
 			System.exit(0);
 		}
 	}

@@ -89,10 +89,16 @@ public class Vehicle extends SimulatedObject {
 		if(s < 0) {
 			throw new IllegalArgumentException("[E] La velocidad del vehículo no puede ser negativa");
 		}
-		_speed = Math.min(s, _maxSpeed);
+		
+		if(this._status != VehicleStatus.TRAVELING) {
+			_speed = 0;
+			return;
+		}
+
+		_speed = Math.min(s, _maxSpeed);;
 	}
 	
-	void setContaminationClass(int c) {
+	void setContClass(int c) {
 		if(c < 0 || c > 10) {
 			throw new IllegalArgumentException("[E] El grado de contaminació tiene que estar en el rango [0, 10]");
 		}
