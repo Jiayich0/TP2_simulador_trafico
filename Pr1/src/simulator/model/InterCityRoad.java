@@ -9,7 +9,6 @@ public class InterCityRoad extends Road {
 	
 	void reduceTotalContamination() {
 		_totalContamination = ((100 - _weather.getValue()) * _totalContamination) / 100;
-		// _totalContamination = Math.max(0, ((100 - _weather.getValue()) * _totalContamination) / 100);
 	}
 	
 	void updateSpeedLimit() {

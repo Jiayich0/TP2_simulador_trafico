@@ -9,7 +9,6 @@ public class CityRoad extends Road {
 	
 	void reduceTotalContamination() {
 		_totalContamination = _totalContamination - getWeatherCondition(_weather);
-		// _totalContamination = Math.max(0, _totalContamination - getWeatherCondition(_weather));
 	}
 	
 	private int getWeatherCondition(Weather w) {

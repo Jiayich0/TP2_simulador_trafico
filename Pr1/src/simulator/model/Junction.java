@@ -32,13 +32,13 @@ public class Junction extends SimulatedObject {
 		_lastSwitchingTime = 0;
 		
 		if (lsStrategy == null) {
-			throw new IllegalArgumentException("ERROR: La estrategia de semáforos no puede ser nula.");
+			throw new IllegalArgumentException("[E] La estrategia lightswitch no puede ser nula");
 		}
 		if (dqStrategy == null) {
-			throw new IllegalArgumentException("ERROR: La estrategia de extracción de vehículos no puede ser nula.");
+			throw new IllegalArgumentException("[E] La estrategia dequeue no puede ser nula");
 		}
 		if (xCoor < 0 || yCoor < 0) {
-			throw new IllegalArgumentException("ERROR: Las coordenadas del cruce deben ser no negativas.");
+			throw new IllegalArgumentException("[E] Las coordenadas del cruce no pyueden ser negativas");
 		}
 		
 		_lsStrategy = lsStrategy;
@@ -58,7 +58,7 @@ public class Junction extends SimulatedObject {
 				v.moveToNextRoad();
 			}
 			_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
-			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); // no se si hace falta borrar de ambos, map y list
+			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// no se si hace falta borrar de ambos, map y list
 		}
 		
 		int nextGreen = _lsStrategy.chooseNextGreen(_incomingRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);
@@ -95,34 +95,34 @@ public class Junction extends SimulatedObject {
 			queuesArray.put(queueObj);
 		}
 
-		js.put("queues", queuesArray);
+		js.put("queues", queuesArray);			// Lista queuues tiene road y otra lista vechicles
 		return js;
 	}
 
 	
 	// Métodos
-	void addIncomingRoad(Road r) {
+	void addIncomingRoad(Road r) {				// Coches que entran
 		if(!r.getDest().equals(this)) {
-			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como destino.");
+			throw new IllegalArgumentException("[E] La carretera " + r.getId() + " no tiene este cruce como destino");
 		}
 		
 		//if (_incomingRoads.contains(r)) {
-	    //    throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " ya está registrada como entrante.");
+	    //    throw new IllegalArgumentException("[E] La carretera " + r.getId() + " ya está registrada como entrante");
 	    //}
 		
-		_incomingRoads.add(r);
+		_incomingRoads.add(r);					// Añade a la lista
 		List<Vehicle> queue = new ArrayList<>();
-		_queues.add(queue);
-		_queueByRoad.put(r, queue);
+		_queues.add(queue);						// Añade a la cola
+		_queueByRoad.put(r, queue);				// Añade al map (lista, cola) para buscar más fácil
 	}
 	
-	void addOutgoingRoad(Road r) {
+	void addOutgoingRoad(Road r) {				// Coches que salen
 		if(r.getSrc() != this) {
-			throw new IllegalArgumentException("ERROR: La carretera " + r.getId() + " no tiene este cruce como origen.");
+			throw new IllegalArgumentException("[E] La carretera " + r.getId() + " no tiene este cruce como origen");
 		}
 		
 		if(_outgoingRoads.containsKey(r.getDest())) {
-			throw new IllegalArgumentException("ERROR: Ya existe una carretera saliente hacia el cruce " + r.getDest().getId());
+			throw new IllegalArgumentException("[E] Ya existe una carretera saliente hacia el cruce " + r.getDest().getId());
 		}
 		
 		_outgoingRoads.put(r.getDest(), r);
@@ -132,12 +132,12 @@ public class Junction extends SimulatedObject {
 		Road road = v.getRoad();
 		
 		if (!_queueByRoad.containsKey(road)) {
-			throw new IllegalArgumentException("ERROR: El vehículo " + v.getId() + " no pertenece a una carretera válida.");
+			throw new IllegalArgumentException("[E] El vehículo " + v.getId() + "no pertenece a una carretera válida");
 		}
 		
 		_queues.get(_incomingRoads.indexOf(road)).add(v);
 		_queueByRoad.get(road).add(v);						// Añade el vehiculo  a la cola de la carretera
-		//lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
+															//lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
 	}
 	
 	Road roadTo(Junction j) {

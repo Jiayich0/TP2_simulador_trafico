@@ -8,7 +8,7 @@ public class RoundRobinStrategy implements LightSwitchingStrategy {
 	
 	RoundRobinStrategy(int timeSlot){
 		if (timeSlot <= 0) {
-		    throw new IllegalArgumentException("ERROR: El tiempo mínimo debe ser positivo.");
+		    throw new IllegalArgumentException("[€] El tiempo minimo tiene que ser positivo");
 		}
 		_timeSlot = timeSlot;
 	}
@@ -21,7 +21,7 @@ public class RoundRobinStrategy implements LightSwitchingStrategy {
 		
 		if(currTime - lastSwitchingTime < _timeSlot) {return currGreen;}
 		
-		return (currGreen + 1) % roads.size();
+		return (currGreen + 1) % roads.size();		// Recorrido circular
 	}
 
 }

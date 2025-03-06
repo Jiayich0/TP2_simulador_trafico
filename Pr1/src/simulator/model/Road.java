@@ -26,22 +26,22 @@ public abstract class Road extends SimulatedObject {
 		_totalContamination = 0;
 		
 		if(maxSpeed <= 0) {
-			throw new IllegalArgumentException("ERROR: La velocidad máxima debe ser mayor que 0.");
+			throw new IllegalArgumentException("[E] La velocidad máxima tiene que ser mayor que 0");
 		}
 		if(contLimit < 0) {
-			throw new IllegalArgumentException("ERROR: El límite de contaminación no puede ser negativo.");
+			throw new IllegalArgumentException("[E] El límite de contaminación no puede ser negativo");
 		}
 		if(length <= 0) {
-			throw new IllegalArgumentException("ERROR: La longitud de la carretera debe ser mayor que 0.");
+			throw new IllegalArgumentException("[E] La longitud de road tiene que ser mayor que 0");
 		}
 		if(srcJunc == null) {
-			throw new IllegalArgumentException("ERROR: El cruce de origen no puede ser nulo.");
+			throw new IllegalArgumentException("[E] El cruce origen no puede ser nulo");
 		}
 		if(destJunc == null) {
-			throw new IllegalArgumentException("ERROR: El cruce de destino no puede ser nulo.");  
+			throw new IllegalArgumentException("[E] El cruce destino no puede ser nulo");  
 		}
 		if(weather == null) {
-			throw new IllegalArgumentException("ERROR: El clima de la carretera no puede ser nulo.");
+			throw new IllegalArgumentException("[E] El clima de la carretera no puede ser nulo");
 		}
 		_maxSpeed = maxSpeed;
 		_speedLimit = _maxSpeed;
@@ -66,7 +66,7 @@ public abstract class Road extends SimulatedObject {
 			v.advance(time);
 		}
 		
-		_vehicles.sort((v1, v2) -> Integer.compare(v2.getLocation(), v1.getLocation()));
+		_vehicles.sort((v1, v2) -> Integer.compare(v2.getLocation(), v1.getLocation()));		// Ordena la lista de vehiculos - DESCENDENTE (de más cerca a la salida a menos)
 	}
 
 	public JSONObject report() {
@@ -88,7 +88,7 @@ public abstract class Road extends SimulatedObject {
 	// Métodos
 	void enter(Vehicle v) {
 		if(v.getLocation() != 0 || v.getSpeed() != 0) {
-			throw new IllegalArgumentException("ERROR: Un vehículo solo puede entrar a la carretera si su localización y velocidad son 0.");
+			throw new IllegalArgumentException("[E] Un vehículo solo puede entrar a la carretera si su localización y velocidad son 0");
 		}
 		_vehicles.add(v);
 	}
@@ -99,14 +99,14 @@ public abstract class Road extends SimulatedObject {
 	
 	void setWeather(Weather w) {
 		if(w == null) {
-			throw new IllegalArgumentException("ERROR: No se puede asignar un clima nulo a la carretera.");
+			throw new IllegalArgumentException("[E] No se puede asignar un clima nulo a la carretera");
 		}
 		_weather = w;
 	}
 	
 	void addContamination(int c) {
 		if(c < 0) {
-			throw new IllegalArgumentException("ERROR: No se puede añadir una cantidad negativa de contaminación.");
+			throw new IllegalArgumentException("[E] No se puede añadir contaminación negativa");
 		}
 		_totalContamination += c;
 	}
@@ -149,7 +149,7 @@ public abstract class Road extends SimulatedObject {
 		return _totalContamination;
 	}
 	
-	public List<Vehicle> getVehicles(){
+	public List<Vehicle> getVehicles(){								// No se usa? Revisar más tarde
 		return Collections.unmodifiableList(_vehicles);
 	}
 }

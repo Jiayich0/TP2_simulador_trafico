@@ -10,11 +10,11 @@ public class Vehicle extends SimulatedObject {
 	private List<Junction> _itinerary; 		// Cruces
 	private int _maxSpeed;
 	private int _speed;
-	private VehicleStatus _status;
+	private VehicleStatus _status;			// 4 estados
 	private Road _road;
 	private int _location;
-	private int _contClass; 
-	private int _totalContamination;
+	private int _contClass; 				// Clase/Grado contaminación
+	private int _totalContamination;		
 	private int _totalDistanceTraveled;
 	
 	private int _itineraryIndex;
@@ -31,13 +31,13 @@ public class Vehicle extends SimulatedObject {
         _itineraryIndex = 0;
 		
 		if (maxSpeed <= 0) {
-			throw new IllegalArgumentException("ERROR: La velocidad máxima del vehículo debe ser mayor que 0.");
+			throw new IllegalArgumentException("[E] La velocidad máxima del vehículo tiene que ser mayor que 0");
 		}
 		if (contClass < 0 || contClass > 10) {
-			throw new IllegalArgumentException("ERROR: El grado de contaminación debe estar en el rango [0,10].");
+			throw new IllegalArgumentException("[E] El grado de contaminació tiene que estar en el rango [0, 10]");
 		}
 		if (itinerary.size() < 2 || itinerary == null) {
-			throw new IllegalArgumentException("ERROR: El itinerario del vehículo debe contener al menos dos cruces.");
+			throw new IllegalArgumentException("[E] El itinerario del vehículo tiene que tener mínimo dos cruces");
 		}
 		_maxSpeed = maxSpeed;
 		_contClass = contClass;
@@ -87,21 +87,21 @@ public class Vehicle extends SimulatedObject {
 	// Métodos
 	void setSpeed(int s) {
 		if(s < 0) {
-			throw new IllegalArgumentException("ERROR: La velocidad del vehículo no puede ser negativa.");
+			throw new IllegalArgumentException("[E] La velocidad del vehículo no puede ser negativa");
 		}
 		_speed = Math.min(s, _maxSpeed);
 	}
 	
 	void setContaminationClass(int c) {
 		if(c < 0 || c > 10) {
-			throw new IllegalArgumentException("ERROR: El grado de contaminación debe estar en el rango [0,10].");
+			throw new IllegalArgumentException("[E] El grado de contaminació tiene que estar en el rango [0, 10]");
 		}
 		_contClass = c;
 	}
 	
 	void moveToNextRoad() {
 		if(_status != VehicleStatus.WAITING && _status != VehicleStatus.PENDING) {
-			throw new IllegalStateException("El vehículo no puede cambiar de carretera si no está en PENDING o WAITING.");
+			throw new IllegalArgumentException("[E] El vehículo no puede cambiar de carretera si no está en PENDING o WAITING");
 		}
 		
 		if(_itineraryIndex == _itinerary.size() - 1) {					// Ha lleagdo a su último cruce
@@ -121,12 +121,12 @@ public class Vehicle extends SimulatedObject {
 	    Road nextRoad = actualJunction.roadTo(nextJunction);
 	    
 	    if (nextRoad == null) {
-	        throw new IllegalStateException("No existe una carretera entre " + actualJunction.getId() + " y " + nextJunction.getId());
+	        throw new IllegalArgumentException("No existe una carretera entre " + actualJunction.getId() + " y " + nextJunction.getId() );
 	    }
 		
 		_road = nextRoad;
 		_location = 0;
-		setStatus(VehicleStatus.TRAVELING);							// Aquí no pone _speed a 0 porque es TRAVELING
+		setStatus(VehicleStatus.TRAVELING);								// Aquí no pone _speed a 0 porque es TRAVELING
 		_road.enter(this);
 	}
 	
@@ -172,7 +172,7 @@ public class Vehicle extends SimulatedObject {
 	// Setters
 	private void setStatus(VehicleStatus newStatus) {
 		if(newStatus == null) {
-			throw new IllegalArgumentException("ERROR: El estado del vehículo no puede ser nulo.");
+			throw new IllegalArgumentException("[E] El estado del vehículo no puede ser nulo");
 		}
 		_status = newStatus;
 		if(_status != VehicleStatus.TRAVELING) {
