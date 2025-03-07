@@ -58,7 +58,7 @@ public class Junction extends SimulatedObject {
 				v.moveToNextRoad();
 			}
 			_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
-			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// no se si hace falta borrar de ambos, map y list
+			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// No se si hace falta borrar de ambos, map y list
 		}
 		
 		int nextGreen = _lsStrategy.chooseNextGreen(_incomingRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);
@@ -106,10 +106,11 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("[E] La carretera " + r.getId() + " no tiene este cruce como destino");
 		}
 		
+		// TODO pasan los tests sin esta verificación, pero tiene sentido para no duplicar. Preguntar al profe
 		//if (_incomingRoads.contains(r)) {
 	    //    throw new IllegalArgumentException("[E] La carretera " + r.getId() + " ya está registrada como entrante");
 	    //}
-		// preguntar al profe
+
 		
 		_incomingRoads.add(r);					// Añade a la lista
 		List<Vehicle> queue = new ArrayList<>();
@@ -137,8 +138,8 @@ public class Junction extends SimulatedObject {
 		}
 		
 		_queues.get(_incomingRoads.indexOf(road)).add(v);
-		_queueByRoad.get(road).add(v);						// Añade el vehiculo  a la cola de la carretera
-															//lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
+		_queueByRoad.get(road).add(v);				// Añade el vehiculo  a la cola de la carretera
+													// lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
 	}
 	
 	Road roadTo(Junction j) {

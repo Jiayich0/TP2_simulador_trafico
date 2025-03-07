@@ -26,7 +26,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 	}
 	
 	private int maxQueue(List<Road> roads, List<List<Vehicle>> qs) {		// maxQueue1 - busca el index de la queue más grande
-		int maxIndex = 0;													// realmente no se usa "roadS"
+		int maxIndex = 0;													// realmente no se usa "roadS", parámetro omitible
 		List<Vehicle> max = qs.get(0);
 		
 		for (int i = 1; i < qs.size(); i++) {
@@ -39,8 +39,8 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 		return maxIndex;
 	}
 	
-	private int maxQueue(List<Road> roads, List<List<Vehicle>> qs, int currGreen) { // maxQueue2 busca el index 
-		int maxIndex = (currGreen + 1) % roads.size();						//de lea siguiente quue más grande o la más grande sin contar currGeen
+	private int maxQueue(List<Road> roads, List<List<Vehicle>> qs, int currGreen) { // maxQueue2 busca el index de lea siguiente
+		int maxIndex = (currGreen + 1) % roads.size();						// queue más grande o la más grande sin contar currGeen
 		List<Vehicle> max = qs.get(maxIndex);
 		
 		for (int i = 1; i < roads.size(); i++) {

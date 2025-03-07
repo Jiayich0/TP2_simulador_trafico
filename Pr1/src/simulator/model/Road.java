@@ -149,7 +149,8 @@ public abstract class Road extends SimulatedObject {
 		return _totalContamination;
 	}
 	
-	public List<Vehicle> getVehicles(){								// No se usa? Revisar más tarde
+	// TODO No se usa? Revisar más tarde este método que no he usado en ninguna otra clase aún
+	public List<Vehicle> getVehicles(){	
 		return Collections.unmodifiableList(_vehicles);
 	}
 }

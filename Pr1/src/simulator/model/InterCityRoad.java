@@ -9,7 +9,8 @@ public class InterCityRoad extends Road {
 	
 	void reduceTotalContamination() {
 		_totalContamination = ((100 - _weather.getValue()) * _totalContamination) / 100;
-		if(_totalContamination < 0) {
+		
+		if(_totalContamination < 0) {								// Pasa test sin el If, pero análogo a CityRoad
 			 _totalContamination = 0;
 		}
 	}

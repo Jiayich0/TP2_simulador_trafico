@@ -14,71 +14,92 @@ public class RoadMap {
 	private List<Road> _roads;
 	private List<Vehicle> _vehicles;
 	
-	private Map<String, Junction> _junctionMap;
-	private Map<String, Road> _roadMap;
-	private Map<String, Vehicle> _vehicleMap;
+	private Map<String, Junction> _junctionsMap;
+	private Map<String, Road> _roadsMap;
+	private Map<String, Vehicle> _vehiclesMap;
 	
 	RoadMap() {
         _junctions = new ArrayList<>();
         _roads = new ArrayList<>();
         _vehicles = new ArrayList<>();
 
-        _junctionMap = new HashMap<>();
-        _roadMap = new HashMap<>();
-        _vehicleMap = new HashMap<>();
+        _junctionsMap = new HashMap<>();
+        _roadsMap = new HashMap<>();
+        _vehiclesMap = new HashMap<>();
 	}
 	
 	void addJunction(Junction j) {
-		if (_junctionMap.containsKey(j.getId())) {
-			throw new IllegalArgumentException("Ya existe un cruce con el identificador: " + j.getId());
+		if (_junctionsMap.containsKey(j.getId())) { // Búsqueda por el id (mismo para los siguientes dos métodos)
+			throw new IllegalArgumentException("[€] Ya existe un cruce con el identificador: " + j.getId());
 		}
 		
 		_junctions.add(j);
-		_junctionMap.put(j.getId(), j);
+		_junctionsMap.put(j.getId(), j);
 	}
 	
 	void addRoad(Road r) {
-		if (_roadMap.containsKey(r.getId())) {
-			throw new IllegalArgumentException("Ya existe una carretera con el identificador: " + r.getId());
+		if (_roadsMap.containsKey(r.getId())) {
+			throw new IllegalArgumentException("[€] Ya existe una carretera con el identificador: " + r.getId());
 		}
-		if (!_junctionMap.containsKey(r.getSrc().getId()) || !_junctionMap.containsKey(r.getDest().getId())) {
-			throw new IllegalArgumentException("Los cruces de la carretera no existen en el mapa de cruces.");
+		if (!_junctionsMap.containsKey(r.getSrc().getId()) || !_junctionsMap.containsKey(r.getDest().getId())) {
+			throw new IllegalArgumentException("[E] Los cruces de la carretera noexisten en el mapa de cruces");
 		}
 		
 		_roads.add(r);
-		_roadMap.put(r.getId(), r);
+		_roadsMap.put(r.getId(), r);
 	}
 	
 	void addVehicle(Vehicle v) {
-		if(_vehicleMap.containsKey(v.getId())) {
-			throw new IllegalArgumentException("Ya existe un vehículo con el identificador: " + v.getId());
+		if(_vehiclesMap.containsKey(v.getId())) {
+			throw new IllegalArgumentException("[€] Ya existe un vehículo con el identificador: " + v.getId());
 		}
-		List<Junction> itinerary = v.getItinerary();
-		for (int i = 0; i < itinerary.size() - 1; i++) {
-			Junction src = itinerary.get(i);
-			Junction dest = itinerary.get(i + 1);
 		
-			boolean roadExists = _roads.stream().anyMatch(r -> r.getSrc().equals(src) && r.getDest().equals(dest));
+		List<Junction> itinerary = v.getItinerary();					//
+		boolean roadExists = true;										// true para entrar al while
+		int i = 0;
+		while(roadExists && i < itinerary.size() - 1) {					// Que exista carretera entre todos los cruces de su itinerario
+			Junction src = itinerary.get(i);							// [0] [1] [2] ... [n-1]
+			Junction dest = itinerary.get(i+1);							// [1] [2] [3] ... [n]
 			
-			if (!roadExists) {
-				throw new IllegalArgumentException("El itinerario del vehículo " + v.getId() + " no es válido. No hay carretera entre " + src.getId() + " y " + dest.getId());
+			roadExists = false;											// false en un principio
+	        for (Road r : _roads) {
+	            if (r.getSrc().equals(src) && r.getDest().equals(dest)) {
+	                roadExists = true;									// true si encuentra una y sale, no busca más (no existe otra)
+	                break;
+	            }
+	        }
+	        
+	        if (!roadExists) {
+				throw new IllegalArgumentException("[E] El itinerario del vehículo " + v.getId() + " no es válido (no hay carretera entre " + src.getId() + " y " + dest.getId() + ")");
 			}
+	        
+			i++;
 		}
 		
 		_vehicles.add(v);
-		_vehicleMap.put(v.getId(), v);
+		_vehiclesMap.put(v.getId(), v);
 	}
 	
+	
+	/***
+	 * -------------------------------------------------------------------------------------------------------------------
+	 * TODO
+	 * Para los 3 siguientes métodos según la guía si no existe tiene que devolver null, no sé si hace falta verficarlo 
+	 * con un getOrDefault o con un if-else manual, porque según codingbat.com:
+	 * "Map get() method. If the key is not present in the map, get() returns null."
+	 * Preguntar al profe
+	 * -------------------------------------------------------------------------------------------------------------------
+	 */
 	public Junction getJunction(String id) {
-		return _junctionMap.getOrDefault(id, null);
+		return _junctionsMap.get(id);
 	}
 	
 	public Road getRoad(String id) {
-		return _roadMap.getOrDefault(id, null);
+		return _roadsMap.get(id);
 	}
 	
 	public Vehicle getVehicle(String id) {
-		return _vehicleMap.getOrDefault(id, null);
+		return _vehiclesMap.get(id);
 	}
 	
 	public List<Junction> getJunctions() {
@@ -98,35 +119,33 @@ public class RoadMap {
         _roads.clear();
         _vehicles.clear();
 
-        _junctionMap.clear();
-        _roadMap.clear();
-        _vehicleMap.clear();
+        _junctionsMap.clear();
+        _roadsMap.clear();
+        _vehiclesMap.clear();
     }
 	
 	public JSONObject report() {
 		JSONObject js = new JSONObject();
 		
-		// convertimos la lista de cruces a un JSONArray de reportes
-		JSONArray junctionsArray = new JSONArray();
+		// Lista de reportes de _junctions, _roads y _vehicles
+		JSONArray JiReport = new JSONArray();
 		for (Junction j : _junctions) {
-			junctionsArray.put(j.report());
+			JiReport.put(j.report());
 	    }
 		
-		// convertimos la lista de carreteras a un JSONArray de reportes
-		JSONArray roadsArray = new JSONArray();
+		JSONArray RiReport = new JSONArray();
 		for (Road r : _roads) {
-			roadsArray.put(r.report());
+			RiReport.put(r.report());
 		}
 		
-		// convertimos la lista de vehiculos a un JSONArray de reportes
-		JSONArray vehiclesArray  = new JSONArray();
+		JSONArray ViReport  = new JSONArray();
 		for (Vehicle v : _vehicles) {
-			vehiclesArray.put(v.report());
+			ViReport.put(v.report());
 		}
 		
-		js.put("junctions", junctionsArray);
-		js.put("roads", roadsArray);
-		js.put("vehicles", vehiclesArray);
+		js.put("junctions", JiReport);
+		js.put("roads", RiReport);
+		js.put("vehicles", ViReport);
 		
 		return js;
 	}
