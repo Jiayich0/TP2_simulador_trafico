@@ -20,11 +20,44 @@ public abstract class Event implements Comparable<Event> {
 		return _time;
 	}
 	
+	private long getTimeStamp() {
+		return _time_stamp;
+	}
+  	
+	
+	
+	/**
+  	 * Propiedad de Java Comparable:
+  	 * a < b -> -1
+  	 * a = b -> 0
+  	 * a > b -> 1
+  	 * a(this) | b(o)
+  	 */
   	@Override
   	public int compareTo(Event o) {
-  	// TODO complete the method to compare events according to their _time, and when
-	// _time is equal it compares the _time_stamp;
+  		if(_time < o.getTime())				
+  			return -1;
+  		
+  		if(_time > o.getTime())
+  			return 1;
+  		
+  		if(_time_stamp < o.getTimeStamp())
+  			return -1;
+  		
+  		if(_time_stamp > o.getTimeStamp())
+  			return 1;
+  		
+  		return 0;
   	}
-	
+  	/**
+  	 * 	Es lo mismo que:
+  	 * 	if(a < b) return -1
+  	 * 	elsif(a > b) return 1
+  	 * 	elsif(a == b)
+  	 * 		if(c < d) return -1
+  	 *		elif(c > d) return 1
+  	 *		else return 0
+  	 */
+  	
   	abstract void execute(RoadMap map);
 }
