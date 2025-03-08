@@ -43,8 +43,8 @@ public class TrafficSimulator {
 		}
 		
 		/**
-		 * No puedes hacer e.getTime() == _time antes del _events.poll() porque no está creada, tampoco puedes comparar
-		 * e.getTime() == _time después de hacerlo porque ya estaría extraído y eliminado sin pasar por el if -> _events.peek()
+		 * No puedes hacer e.getTime() == _time antes del _events.poll() porque no está creada e, tampoco puedes comparar
+		 * e.getTime() == _time después de hacerlo porque ya estaría extraído y eliminado sin pasar por el if. Solución -> _events.peek()
 		 * peek(): devuelve el primer elemento de la cola sin eliminarlo
 		 */
 		

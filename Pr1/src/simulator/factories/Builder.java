@@ -14,22 +14,22 @@ public abstract class Builder<T> {
 		_desc = desc;
 	}
 
-	public String get_type_tag() {
+	public String getTypeTag() {
 		return _type_tag;
 	}
 
-	public JSONObject get_info() {
+	public JSONObject getInfo() {
 		JSONObject info = new JSONObject();
 		info.put("type", _type_tag);
 		info.put("desc", _desc);
 
 		JSONObject data = new JSONObject();
-		fill_in_fata(data);
+		fillInData(data);
 		info.put("data", data);
 		return info;
 	}
 
-	protected void fill_in_fata(JSONObject o) {
+	protected void fillInData(JSONObject o) {
 	}
 
 	@Override
@@ -37,5 +37,5 @@ public abstract class Builder<T> {
 		return _desc;
 	}
 
-	protected abstract T create_instance(JSONObject data);
+	protected abstract T createInstance(JSONObject data);
 }
