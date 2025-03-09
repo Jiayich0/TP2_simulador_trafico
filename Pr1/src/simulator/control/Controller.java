@@ -70,6 +70,7 @@ public class Controller {
 	    for (int i = 0; i < n - 1; i++) {
 	        _sim.advance();
 	        p.print(_sim.report());
+	        System.out.println("Linea JSON: " + i + " -> " + _sim.report().toString()); // Para depurar: breakpoint porperties, conditional, i == 137
 	        p.println(",");
 	    }
 	    
@@ -79,8 +80,9 @@ public class Controller {
 	        p.print(_sim.report());
 	    }
 	    
+	    p.println();
 	    p.println("]");
-	    p.println(" }");
+	    p.println("}");
 	}
 	
 	public void reset() {

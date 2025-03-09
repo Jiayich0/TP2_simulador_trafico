@@ -55,10 +55,12 @@ public class Junction extends SimulatedObject {
 			List<Vehicle> vehiclesToMove = _dqStrategy.dequeue(_queueByRoad.get(greenRoad));
 			
 			for (Vehicle v : vehiclesToMove) {
+				_queueByRoad.get(greenRoad).remove(v);										// Cambio?
+				_queues.get(_incomingRoads.indexOf(greenRoad)).remove(v);
 				v.moveToNextRoad();
 			}
-			_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
-			_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// No se si hace falta borrar de ambos, map y list
+			//_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
+			//_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// No se si hace falta borrar de ambos, map y list
 		}
 		
 		int nextGreen = _lsStrategy.chooseNextGreen(_incomingRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);

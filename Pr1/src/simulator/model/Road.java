@@ -78,7 +78,7 @@ public abstract class Road extends SimulatedObject {
 		
 		JSONArray vehiclesArray = new JSONArray();
 	    for (Vehicle v : _vehicles) {
-	        vehiclesArray.put(v.getId());
+	    	vehiclesArray.put(v.getId());
 	    }
 		js.put("vehicles", vehiclesArray);
 		return js;
@@ -90,11 +90,16 @@ public abstract class Road extends SimulatedObject {
 		if(v.getLocation() != 0 || v.getSpeed() != 0) {
 			throw new IllegalArgumentException("[E] Un vehículo solo puede entrar a la carretera si su localización y velocidad son 0");
 		}
-		_vehicles.add(v);
+		
+		if (!_vehicles.contains(v)) {  				// Evita duplicados
+			_vehicles.add(v);
+		}
 	}
 	
 	void exit(Vehicle v) {
-		_vehicles.remove(v);
+		if (_vehicles.contains(v)) {
+	        _vehicles.remove(v);
+		}
 	}
 	
 	void setWeather(Weather w) {
