@@ -35,7 +35,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	
 	// Herencia
 	@Override
-	public T createInstance(JSONObject info) {
+	public T create_instance(JSONObject info) {
 		if (info == null) {
 			throw new IllegalArgumentException("’info’ cannot be null");
 		}
@@ -44,7 +44,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		Builder<T> builder = _builders.get(type);
 		if(builder != null) {
 			JSONObject data = info.has("data")? info.getJSONObject("data"): new JSONObject();
-			T instance = builder.createInstance(data);
+			T instance = builder.create_instance(data);
 			if (instance!= null) {
                 return instance;
             }

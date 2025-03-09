@@ -21,7 +21,7 @@ public class NewJunctionEventBuilder extends Builder<Event> {
 	
 	// Herencia
 	@Override
-	protected Event createInstance(JSONObject data) {
+	protected Event create_instance(JSONObject data) {
 		if (!data.has("time") || !data.has("id") || !data.has("coor") || !data.has("ls_strategy") || !data.has("dq_strategy")) {
 			throw new IllegalArgumentException("[E] No se encuentra disponible toda la infromaciópn necesaria en data");
 		}
@@ -36,10 +36,10 @@ public class NewJunctionEventBuilder extends Builder<Event> {
         // Como es un JsonObject dentro de otro JsonObject se puede usar la propia factoría de los LightSwitchingStrategys
         // para eso hay que pasarle un JSONObject data
         JSONObject lssSData = data.getJSONObject("ls_strategy");
-        LightSwitchingStrategy lsStrategy = _lssFactory.createInstance(lssSData);
+        LightSwitchingStrategy lsStrategy = _lssFactory.create_instance(lssSData);
         
         JSONObject dqsData = data.getJSONObject("dq_strategy");
-        DequeuingStrategy dqStrategy = _dqsFactory.createInstance(dqsData);
+        DequeuingStrategy dqStrategy = _dqsFactory.create_instance(dqsData);
 
         return new NewJunctionEvent(time, id, lsStrategy, dqStrategy, xCoor, yCoor);
 	}

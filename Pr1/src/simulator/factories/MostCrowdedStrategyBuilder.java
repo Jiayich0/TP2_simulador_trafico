@@ -12,7 +12,7 @@ public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy> 
 	
 	// Herencia
 	@Override
-	protected LightSwitchingStrategy createInstance(JSONObject data) {
+	protected LightSwitchingStrategy create_instance(JSONObject data) {
 		int timeSlot = 1;
 		
 		if(data.has("timeslot")) {

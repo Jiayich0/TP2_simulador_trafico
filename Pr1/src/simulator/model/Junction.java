@@ -106,7 +106,7 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("[E] La carretera " + r.getId() + " no tiene este cruce como destino");
 		}
 		
-		// TODO pasan los tests sin esta verificación, pero tiene sentido para no duplicar. Preguntar al profe
+		// FIXME - verificación: pasan los tests sin esta verificación, pero tiene sentido para no duplicar. Preguntar al profe
 		//if (_incomingRoads.contains(r)) {
 	    //    throw new IllegalArgumentException("[E] La carretera " + r.getId() + " ya está registrada como entrante");
 	    //}

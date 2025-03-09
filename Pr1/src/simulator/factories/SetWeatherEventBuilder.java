@@ -1,25 +1,40 @@
 package simulator.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import simulator.misc.Pair;
 import simulator.model.Event;
+import simulator.model.SetWeatherEvent;
+import simulator.model.Weather;
 
 public class SetWeatherEventBuilder extends Builder<Event> {
 	
-	public aaaaaaaaaaaaaaaaaaaaaaaaaaaa() {
-		super("aaaaaaaaaaaaaaa", "A new aaaaaaaaaaaaaaaaa");
+	public SetWeatherEventBuilder() {
+		super("set_weather", "A new weather");
 	}
 	
 	// Herencia
 	@Override
-	protected Event createInstance(JSONObject data) {
-		if (!data.has("time") || !data.has("id") ) {
-			throw new IllegalArgumentException("[E] No se encuentra disponible toda la infromaciópn necesaria en data");
+	protected Event create_instance(JSONObject data) {
+		if (!data.has("time") || !data.has("info") ) {
+			throw new IllegalArgumentException("[E] No se encuentra disponible toda la información necesaria en data");
 		}
 		
 		int time = data.getInt("time");
-        String id = data.getString("id");
-
-        return new aaaaaaaaaaaaaaaaaaaaaaa(time, id);
+		
+		// Parecido a vehicle, extrae jsonArray y hace una copia profunda a la lista de pares
+		JSONArray jsArray = data.getJSONArray("info");
+		List<Pair<String, Weather>> ws = new ArrayList<>();
+		for (int i = 0; i < jsArray.length(); i++) {
+			JSONObject jsObj = jsArray.getJSONObject(i);	// Obtiene cada objeto JSON(par) del JSONArray(list)
+            String road = jsObj.getString("road");			// jsonobj con identificador "road" lo convierte a String
+            Weather weather = Weather.valueOf(jsObj.getString("weather").toUpperCase()); // id -> String -> Weather
+            ws.add(new Pair<>(road, weather));				// Añade cada par a la la lista con los datos copiados y convertidos a String y Weather respectivamente
+		}
+		
+        return new SetWeatherEvent(time, ws);
 	}
 	
 	@Override

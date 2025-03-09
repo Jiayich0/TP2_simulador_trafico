@@ -61,8 +61,12 @@ public abstract class Event implements Comparable<Event> {
   	
   	abstract void execute(RoadMap map);
   	
-  	// FIXME todas las clases hija de Event, no tienen verificación de NullPointerException en sus constructoras
-  	// (no lo pone en el enunciado). Si algo da error -> checkear
-  	// La clases de NewRoadEvent y NewVehicle no verifican si al buscar map.getJunction(String) existe o no
-  	// NewWeatherEvent en caso de r == null
+  	
+  	/**
+  	 * FIXME - verificación
+  	 * 1. No tienen verificación de NullPointerException ninguna clase hija de Event en sus constructoras
+  	 * (no lo pone en el enunciado). Si algo da error -> checkear
+  	 * 2. La clases de NewRoadEvent y NewVehicle no verifican si al buscar map.getJunction(String) existe o no
+  	 * 3. NewWeatherEvent en caso de r == null
+  	 */
 }

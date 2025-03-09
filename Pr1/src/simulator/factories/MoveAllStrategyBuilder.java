@@ -12,7 +12,7 @@ public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy>{
 	
 	// Herencia
 	@Override
-	protected DequeuingStrategy createInstance(JSONObject data) {
+	protected DequeuingStrategy create_instance(JSONObject data) {
 		return new MoveAllStrategy();
 	}
 	
