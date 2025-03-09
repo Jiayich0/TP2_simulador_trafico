@@ -36,7 +36,7 @@ public class TrafficSimulator {
 		}
 		*/
 		
-		// Oracle.com "poll() methods remove and return the head of the queue"
+		// Oracle.com "poll() methods remove and return the head of the queue". Lo mismo que en c++
 		while (!_events.isEmpty() && _events.peek().getTime() == _time) {
 			Event e = _events.poll();						
 			e.execute(_roadMap);
