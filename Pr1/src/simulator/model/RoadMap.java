@@ -86,7 +86,7 @@ public class RoadMap {
 	 * Para los 3 siguientes métodos según la guía si no existe tiene que devolver null, no sé si hace falta verficarlo 
 	 * con un getOrDefault o con un if-else manual, porque según codingbat.com:
 	 * "Map get() method. If the key is not present in the map, get() returns null."
-	 * Preguntar al profe
+	 * Preguntar al profe si es así y si está bien
 	 */
 	public Junction getJunction(String id) {
 		return _junctionsMap.get(id);

@@ -46,7 +46,7 @@ public class Junction extends SimulatedObject {
 		_x = xCoor;
 		_y = yCoor;
 	}
-
+	// FIXME - para qué son los coords si no se usan
 	
 	// Herencia
 	void advance(int time) {
@@ -55,12 +55,10 @@ public class Junction extends SimulatedObject {
 			List<Vehicle> vehiclesToMove = _dqStrategy.dequeue(_queueByRoad.get(greenRoad));
 			
 			for (Vehicle v : vehiclesToMove) {
-				_queueByRoad.get(greenRoad).remove(v);										// Cambio?
-				_queues.get(_incomingRoads.indexOf(greenRoad)).remove(v);
 				v.moveToNextRoad();
+				_queueByRoad.get(greenRoad).remove(v);										// No se si hace falta borrar de ambos, map y list
+				_queues.get(_incomingRoads.indexOf(greenRoad)).remove(v);
 			}
-			//_queueByRoad.get(greenRoad).removeAll(vehiclesToMove);
-			//_queues.get(_incomingRoads.indexOf(greenRoad)).removeAll(vehiclesToMove); 	// No se si hace falta borrar de ambos, map y list
 		}
 		
 		int nextGreen = _lsStrategy.chooseNextGreen(_incomingRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);
@@ -139,7 +137,9 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("[E] El vehículo " + v.getId() + "no pertenece a una carretera válida");
 		}
 		
-		_queues.get(_incomingRoads.indexOf(road)).add(v);
+		// FIXME - TEST1. Si se descomenta la siguiente línea el test1 de Main no va porque se está añadiendo dos veces, entonces
+		// por qué en addIncomingRoad sí se añade a lista y mapa y va bien??
+		//_queues.get(_incomingRoads.indexOf(road)).add(v);
 		_queueByRoad.get(road).add(v);				// Añade el vehiculo  a la cola de la carretera
 													// lo mismo que añadir a _queeus add(v) pero por eficiencia se usa el map _queueByRoad
 	}

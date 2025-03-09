@@ -93,7 +93,7 @@ public abstract class Road extends SimulatedObject {
 		
 		if (!_vehicles.contains(v)) {  				// Evita duplicados
 			_vehicles.add(v);
-		}
+		}	
 	}
 	
 	void exit(Vehicle v) {

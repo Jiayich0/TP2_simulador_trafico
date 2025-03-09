@@ -112,6 +112,9 @@ public class Vehicle extends SimulatedObject {
 		
 		if(_itineraryIndex == _itinerary.size() - 1) {					// Ha lleagdo a su último cruce
 			setStatus(VehicleStatus.ARRIVED);							// También pone _speed a 0
+			if (_road != null) {											// Saca a este vehiculo de la carretera en la que está
+		        _road.exit(this);		// Añadido porque si no da error en los Test1 y 2 de Main
+		    }
 			_road = null;
 			return;
 		}
@@ -127,7 +130,7 @@ public class Vehicle extends SimulatedObject {
 	    Road nextRoad = actualJunction.roadTo(nextJunction);
 	    
 	    if (nextRoad == null) {
-	        throw new IllegalArgumentException("No existe una carretera entre " + actualJunction.getId() + " y " + nextJunction.getId() );
+	        throw new IllegalArgumentException("[E] No existe una carretera entre " + actualJunction.getId() + " y " + nextJunction.getId() );
 	    }
 		
 		_road = nextRoad;
