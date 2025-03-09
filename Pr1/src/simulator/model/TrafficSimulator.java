@@ -27,8 +27,9 @@ public class TrafficSimulator {
 	public void advance() {
 		_time++;
 		
-		/*
+		/* FIXME - dos alternativas: elegir uno
 		funcionar funciona, habría que añadirle que se elimine una vez extraída, pero teniendo la Estructura de Datos Queue...
+		Si está bien el while, borrar este. Conusltar con el profe
 		for(Event e : _events) {
 			if(e.getTime() == _time) {
 				e.execute(_roadMap);
@@ -41,11 +42,12 @@ public class TrafficSimulator {
 			Event e = _events.poll();						
 			e.execute(_roadMap);
 		}
-		
 		/**
-		 * No puedes hacer e.getTime() == _time antes del _events.poll() porque no está creada e, tampoco puedes comparar
-		 * e.getTime() == _time después de hacerlo porque ya estaría extraído y eliminado sin pasar por el if. Solución -> _events.peek()
-		 * peek(): devuelve el primer elemento de la cola sin eliminarlo
+		 * RECORDATORIO:
+		 * 	1. No puedes hacer e.getTime() == _time antes del _events.poll() porque no está creada e
+		 * 	2. No puedes comparar e.getTime() == _time después de hacerlo porque ya estaría extraído y eliminado sin pasar por el if
+		 * 	   Solución -> _events.peek()
+		 * 		peek(): devuelve el primer elemento de la cola sin eliminarlo
 		 */
 		
 		for(Junction j : _roadMap.getJunctions()) {
