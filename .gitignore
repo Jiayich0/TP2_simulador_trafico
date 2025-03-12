@@ -1,14 +1,14 @@
-/.metadata/
+.metadata/
 
-/bin/
+bin/
+
+.settings/
+.classpath
+.project
 
 
-/.classpath
-/.project
-/.settings/
-
+*.class
 
 *.log
 *.tmp
-
 
