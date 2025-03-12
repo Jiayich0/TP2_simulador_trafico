@@ -13,7 +13,7 @@ public interface Factory<T> {
 	// Lista de JSONObject con info de qué objetos puede crear la factoría
 	
 	/**
-	 * FIXME - nomenclatura
+	 * fixme solucionado - nomenclatura
 	 * Hay un problema con la nomenclatura de Factory, Builder y sus clases hija. Uso en toda la practica camelCase
 	 * pero la llamada de los tests a createInstance es en snake_case (create_instance). No mantiene consistencia.
 	 * Consultar con el profesor. No es un problema a nivel funcional

@@ -46,7 +46,7 @@ public class Junction extends SimulatedObject {
 		_x = xCoor;
 		_y = yCoor;
 	}
-	// FIXME - para qué son los coords si no se usan
+	// fixme solucionado - para qué son los coords si no se usan
 	
 	// Herencia
 	void advance(int time) {
@@ -106,7 +106,7 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("[E] La carretera " + r.getId() + " no tiene este cruce como destino");
 		}
 		
-		// FIXME - verificación: pasan los tests sin esta verificación, pero tiene sentido para no duplicar. Preguntar al profe
+		// fixme solucionado - verificación: pasan los tests sin esta verificación, pero tiene sentido para no duplicar. Preguntar al profe
 		//if (_incomingRoads.contains(r)) {
 	    //    throw new IllegalArgumentException("[E] La carretera " + r.getId() + " ya está registrada como entrante");
 	    //}
@@ -137,7 +137,7 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("[E] El vehículo " + v.getId() + "no pertenece a una carretera válida");
 		}
 		
-		// FIXME - TEST1. Si se descomenta la siguiente línea el test1 de Main no va porque se está añadiendo dos veces, entonces
+		// fixme solucionado - TEST1. Si se descomenta la siguiente línea el test1 de Main no va porque se está añadiendo dos veces, entonces
 		// por qué en addIncomingRoad sí se añade a lista y mapa y va bien??
 		//_queues.get(_incomingRoads.indexOf(road)).add(v);
 		_queueByRoad.get(road).add(v);				// Añade el vehiculo  a la cola de la carretera

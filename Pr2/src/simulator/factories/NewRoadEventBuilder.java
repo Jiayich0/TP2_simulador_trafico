@@ -39,13 +39,6 @@ public abstract class NewRoadEventBuilder extends Builder<Event> {
     }
 	
 	protected abstract Event createRoadEvent(int time, String id, String src, String dest, int length, int co2Limit, int maxSpeed, Weather weather);
-	
-	/**
-	 * FIXME - instancia de clase abstracta
-	 * La clase NewRoadEventBuilder es una clase para evitar duplicar código en NewCityRoadEventBuilder y NewInterCityRoadEventBuilder,
-	 * por tanto no debería nunca poder crearse una instancia de esta. Con abstract class se evita crear instancias y con protected
-	 * solo permite que las clases hijas usen su constructora. Preguntar al profe si es así
-	 */
 }
 
 

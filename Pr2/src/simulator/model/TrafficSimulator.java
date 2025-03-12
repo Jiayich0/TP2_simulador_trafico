@@ -1,15 +1,16 @@
 package simulator.model;
 
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import org.json.JSONObject;
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	
 	private RoadMap _roadMap;
-	Queue<Event> _events;
-	int _time;
-	
+	private Queue<Event> _events;
+	private int _time;
+	private List<TrafficSimObserver> observers;
 	
 	
 	public TrafficSimulator() {
@@ -25,16 +26,6 @@ public class TrafficSimulator {
 	
 	public void advance() {
 		_time++;
-		
-		/* FIXME - dos alternativas: elegir uno
-		funcionar funciona, habría que añadirle que se elimine una vez extraída, pero teniendo la Estructura de Datos Queue...
-		Si está bien el while, borrar este. Conusltar con el profe
-		for(Event e : _events) {
-			if(e.getTime() == _time) {
-				e.execute(_roadMap);
-			}
-		}
-		*/
 		
 		// Oracle.com "poll() methods remove and return the head of the queue". Lo mismo que en c++
 		while (!_events.isEmpty() && _events.peek().getTime() == _time) {
@@ -70,5 +61,18 @@ public class TrafficSimulator {
 		js.put("state", _roadMap.report());
 		
 		return js;
+	}
+
+	// Interfaz
+	@Override
+	public void addObserver(TrafficSimObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeObserver(TrafficSimObserver o) {
+		// TODO Auto-generated method stub
+		
 	}
 }

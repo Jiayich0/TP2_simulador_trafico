@@ -26,7 +26,7 @@ public class TrafficSimulator {
 	public void advance() {
 		_time++;
 		
-		/* FIXME - dos alternativas: elegir uno
+		/* fixme solucionado - dos alternativas: elegir uno
 		funcionar funciona, habría que añadirle que se elimine una vez extraída, pero teniendo la Estructura de Datos Queue...
 		Si está bien el while, borrar este. Conusltar con el profe
 		for(Event e : _events) {
