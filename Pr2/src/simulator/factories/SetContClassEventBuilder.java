@@ -11,7 +11,7 @@ import simulator.model.SetContClassEvent;
 public class SetContClassEventBuilder extends Builder<Event> {
 	
 	public SetContClassEventBuilder() {
-		super("set_cont_class", "A new contamination class");
+		super("set_cont_class", "Set contamination class");
 	}
 	
 	// Herencia

@@ -23,8 +23,6 @@ public abstract class Event implements Comparable<Event> {
 	private long getTimeStamp() {
 		return _time_stamp;
 	}
-  	
-	
 	
 	/**
   	 * Propiedad de Java Comparable:
@@ -60,4 +58,6 @@ public abstract class Event implements Comparable<Event> {
   	 */
   	
   	abstract void execute(RoadMap map);
+  	
+  	public abstract String toString();
 }

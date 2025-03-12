@@ -24,23 +24,21 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	
 	public void addEvent(Event e) {
 		_events.add(e);
+		
+		for (TrafficSimObserver o : _observers) {
+			o.onEventAdded(_roadMap, _events, e, _time);
+		}
 	}
 	
 	public void advance() {
 		_time++;
 		
-		// Oracle.com "poll() methods remove and return the head of the queue". Lo mismo que en c++
+		// poll(): "remove and return the head of the queue"
+		// peek(): devuelve el primer elemento de la cola sin eliminarlo
 		while (!_events.isEmpty() && _events.peek().getTime() == _time) {
 			Event e = _events.poll();						
 			e.execute(_roadMap);
 		}
-		/**
-		 * RECORDATORIO:
-		 * 	1. No puedes hacer e.getTime() == _time antes del _events.poll() porque no está creada e
-		 * 	2. No puedes comparar e.getTime() == _time después de hacerlo porque ya estaría extraído y eliminado sin pasar por el if
-		 * 	   Solución -> _events.peek()
-		 * 		peek(): devuelve el primer elemento de la cola sin eliminarlo
-		 */
 		
 		for(Junction j : _roadMap.getJunctions()) {
 			j.advance(_time);
@@ -49,12 +47,20 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		for(Road r : _roadMap.getRoads()) {
 			r.advance(_time);
 		}
+		
+		for (TrafficSimObserver o : _observers) {
+			o.onAdvance(_roadMap, _events, _time);
+		}
 	}
 	
 	public void reset() {
 		_roadMap.reset();
 		_events.clear();
 		_time = 0;
+		
+		for (TrafficSimObserver o : _observers) {
+			o.onReset(_roadMap, _events, _time);
+		}
 	}
 	
 	public JSONObject report() {
@@ -69,6 +75,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	@Override
 	public void addObserver(TrafficSimObserver o) {
 		_observers.add(o);
+		o.onRegister(_roadMap, _events, _time);
 	}
 
 	@Override

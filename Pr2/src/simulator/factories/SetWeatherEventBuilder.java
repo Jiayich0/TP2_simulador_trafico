@@ -12,7 +12,7 @@ import simulator.model.Weather;
 public class SetWeatherEventBuilder extends Builder<Event> {
 	
 	public SetWeatherEventBuilder() {
-		super("set_weather", "A new weather");
+		super("set_weather", "Set weather");
 	}
 	
 	// Herencia

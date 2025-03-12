@@ -8,7 +8,7 @@ import simulator.model.Weather;
 public class NewInterCityRoadEventBuilder extends NewRoadEventBuilder {
 
 	public NewInterCityRoadEventBuilder() {
-		super("new_inter_city_road", "A inter city road");
+		super("new_inter_city_road", "A new inter city road");
 	}
 	
 	// Herencia
