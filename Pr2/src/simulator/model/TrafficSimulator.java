@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -10,13 +11,14 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	private RoadMap _roadMap;
 	private Queue<Event> _events;
 	private int _time;
-	private List<TrafficSimObserver> observers;
+	private List<TrafficSimObserver> _observers;
 	
 	
 	public TrafficSimulator() {
 		_roadMap = new RoadMap();
 		_events = new PriorityQueue<>();
 		_time = 0;
+		_observers = new ArrayList<>();
 	}
 	
 	
@@ -66,13 +68,11 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	// Interfaz
 	@Override
 	public void addObserver(TrafficSimObserver o) {
-		// TODO Auto-generated method stub
-		
+		_observers.add(o);
 	}
 
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
-		// TODO Auto-generated method stub
-		
+		_observers.remove(o);		
 	}
 }

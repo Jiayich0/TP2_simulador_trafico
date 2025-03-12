@@ -147,5 +147,4 @@ public class Junction extends SimulatedObject {
 	Road roadTo(Junction j) {
 		return _outgoingRoads.get(j);
 	}
-	
 }
