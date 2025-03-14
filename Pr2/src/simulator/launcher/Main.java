@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -20,6 +22,7 @@ import simulator.control.Controller;
 import simulator.factories.*;
 import simulator.model.Event;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
 
 public class Main {
@@ -28,6 +31,7 @@ public class Main {
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
 	private static int _timeLimit = 10;
+	private static String _mode = "gui";
 
 	private static void parseArgs(String[] args) {
 
@@ -41,9 +45,10 @@ public class Main {
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
+			parseModeOption(line);
 			parseInFileOption(line);
 			parseOutFileOption(line);
-			parseTimeLimitOption(line);//
+			parseTimeLimitOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -67,11 +72,11 @@ public class Main {
 		Options cmdLineOptions = new Options();
 
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Events input file").build());
-		cmdLineOptions.addOption(
-				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
+		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's main loop (default value is 10).").build());
-
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("Execution mode: 'gui' or 'console'").build());
+		
 		return cmdLineOptions;
 	}
 
@@ -84,16 +89,28 @@ public class Main {
 			System.exit(0);
 		}
 	}
+	
+	private static void parseModeOption(CommandLine line) throws ParseException {
+		if (line.hasOption("m")) {
+			_mode = line.getOptionValue("m");
+			if (!(_mode.equalsIgnoreCase("gui") || _mode.equalsIgnoreCase("console"))) {
+				throw new ParseException("Modo inválido: " + _mode + ". Usar 'gui' o 'console'");
+			}
+		}
+	}
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
-			throw new ParseException("An events file is missing");
-		}
+		if (_mode.equals("console") && _inFile == null) {
+	        throw new ParseException("El archivo de eventos es obligatorio en modo 'console'");
+	    }
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
+		if (_mode.equals("gui")) {
+			_outFile = null;
+		}
 	}
 	
 	private static void parseTimeLimitOption(CommandLine line) throws ParseException {
@@ -117,7 +134,6 @@ public class Main {
 		 eventBuilders.add(new NewJunctionEventBuilder(
 		            	new BuilderBasedFactory<>(List.of(new RoundRobinStrategyBuilder(), new MostCrowdedStrategyBuilder())),
 		            	new BuilderBasedFactory<>(List.of(new MoveFirstStrategyBuilder(), new MoveAllStrategyBuilder()))));
-		 
 		 eventBuilders.add(new NewCityRoadEventBuilder());
 		 eventBuilders.add(new NewInterCityRoadEventBuilder());
 		 eventBuilders.add(new NewVehicleEventBuilder());
@@ -148,11 +164,36 @@ public class Main {
             output.close();
         }
 	}
+	
+	private static void startGUIMode() throws IOException {
+		TrafficSimulator sim = new TrafficSimulator();
+		Controller controller = new Controller(sim, _eventsFactory);
+		
+		if (_inFile != null) {
+			try (InputStream input = new FileInputStream(_inFile)) {
+	            controller.loadEvents(input);
+	        }
+		}
+	
+		SwingUtilities.invokeLater(new Runnable() {
+	        @Override
+	        public void run() {
+	            new MainWindow(controller);
+	        }
+		});
+	}
 
 	private static void start(String[] args) throws IOException {
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+		
+		if(_mode.equalsIgnoreCase("gui")) {
+			startGUIMode();
+		}
+		else {
+			startBatchMode();
+		}
+
 	}
 
 	// example command lines:
@@ -168,7 +209,5 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
