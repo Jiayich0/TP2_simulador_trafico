@@ -8,7 +8,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import simulator.control.Controller;
 
 public class MainWindow extends JFrame {
@@ -50,21 +49,18 @@ public class MainWindow extends JFrame {
 	    //tablesPanel.add(createViewPanel(new JTable(new RoadsTableModel(_ctrl)), "Roads"));
 	    //tablesPanel.add(createViewPanel(new JTable(new JunctionsTableModel(_ctrl)), "Junctions"));
 
-	    // Añadir mapas
-	    mapsPanel.add(createViewPanel(new MapComponent(_ctrl), "Map"));
-	    //mapsPanel.add(createViewPanel(new MapByRoadComponent(_ctrl), "Map by Road"));
-		/*
+		
 		// tables
 		JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
 		eventsView.setPreferredSize(new Dimension(500, 200));
 		tablesPanel.add(eventsView);
 		// TODO add other tables
-		// ...*/
+		// ...
 
 		// maps
-		//JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
-		//mapView.setPreferredSize(new Dimension(500, 400));
-		//mapsPanel.add(mapView);
+		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
+		mapView.setPreferredSize(new Dimension(500, 400));
+		mapsPanel.add(mapView);
 		// TODO add a map for MapByRoadComponent
 		// ...
 		
