@@ -142,11 +142,21 @@ public class Junction extends SimulatedObject {
 		return _outgoingRoads.get(j);
 	}
 	
+	
+	// Getters
 	public int getX() {
 		return _x;
 	}
 	
 	public int getY() {
 		return _y;
+	}
+	
+	public int getGreenLightIndex() {
+		return _greenLightIndex;
+	}
+	
+	public List<Road> getInRoads() {
+		return _incomingRoads;
 	}
 }

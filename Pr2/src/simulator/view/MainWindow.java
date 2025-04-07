@@ -8,6 +8,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import simulator.control.Controller;
 
 public class MainWindow extends JFrame {
@@ -21,53 +23,61 @@ public class MainWindow extends JFrame {
 		_ctrl = ctrl;
 		initGUI();
 		
-		this.setSize(800, 600); // Puedes ajustar el tamaño
-	    this.setMinimumSize(new Dimension(600, 400)); // Para evitar que se haga demasiado pequeña
+		this.setSize(800, 600);
+	    this.setMinimumSize(new Dimension(600, 400));
 	    this.setLocationRelativeTo(null); 
 	}
 
 	private void initGUI() {
+		// Se crea un panel principal
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
-
-		//mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
+		
+		// Se añade arriba el panel de control -> ControlPanel
+		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
+		
+		// Se añade abajo el panel de estados -> StatusBar
 		//mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
 		
+		// Se crea en el centro un panel para las tablas y mapas
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
-
+		
+		// Se crea dentro de viewsPanel el panel de las tablas (izquierda)
 		JPanel tablesPanel = new JPanel();
 		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(tablesPanel);
-
+		
+		// Se crea dentor de viewsPanel el panel de los mapas (derecha)
 		JPanel mapsPanel = new JPanel();
 		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(mapsPanel);
 		
-		//tablesPanel.add(createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events"));
-	    //tablesPanel.add(createViewPanel(new JTable(new VehiclesTableModel(_ctrl)), "Vehicles"));
-	    //tablesPanel.add(createViewPanel(new JTable(new RoadsTableModel(_ctrl)), "Roads"));
-	    //tablesPanel.add(createViewPanel(new JTable(new JunctionsTableModel(_ctrl)), "Junctions"));
-
+		
+		
 		
 		// tables
-		JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
-		eventsView.setPreferredSize(new Dimension(500, 200));
-		tablesPanel.add(eventsView);
+		//JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
+		//eventsView.setPreferredSize(new Dimension(500, 200));
+		//tablesPanel.add(eventsView);
 		// TODO add other tables
 		// ...
+		tablesPanel.add(createViewPanel(new JTable(), "Events"));
+	    tablesPanel.add(createViewPanel(new JTable(), "Vehicles"));
+	    tablesPanel.add(createViewPanel(new JTable(), "Roads"));
+	    tablesPanel.add(createViewPanel(new JTable(), "Junctions"));
 
 		// maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
 		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
-		// TODO add a map for MapByRoadComponent
-		// ...
+		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
+		mapsPanel.add(mapRoadView);
+		
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-
 	}
 
 	private JPanel createViewPanel(JComponent c, String title) {

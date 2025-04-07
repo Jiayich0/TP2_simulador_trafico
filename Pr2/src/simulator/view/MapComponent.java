@@ -36,7 +36,6 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
 
 	private RoadMap _map;
-
 	private Image _car;
 
 	MapComponent(Controller ctrl) {
