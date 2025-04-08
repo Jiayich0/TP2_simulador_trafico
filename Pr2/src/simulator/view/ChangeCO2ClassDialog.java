@@ -92,8 +92,8 @@ public class ChangeCO2ClassDialog extends JDialog {
 				List<Pair<String, Integer>> cs = new ArrayList<>();
 				cs.add(new Pair<>(vehicleId, co2Class));
 				
-				SetContClassEvent e1 = new SetContClassEvent(_ctrl.getCurrentTime() + ticks, cs);
-				_ctrl.addEvent(e1);
+				SetContClassEvent contClassE = new SetContClassEvent(_ctrl.getCurrentTime() + ticks, cs);
+				_ctrl.addEvent(contClassE);
 
 				dispose();
 			}

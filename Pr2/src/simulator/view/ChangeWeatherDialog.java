@@ -87,15 +87,15 @@ public class ChangeWeatherDialog extends JDialog {
 				List<Pair<String, Weather>> cs = new ArrayList<>();
 				cs.add(new Pair<>(vehicleId, weather));
 				
-				SetWeatherEvent e1 = new SetWeatherEvent(_ctrl.getCurrentTime() + ticks, cs);
-				_ctrl.addEvent(e1);
+				SetWeatherEvent weatherE = new SetWeatherEvent(_ctrl.getCurrentTime() + ticks, cs);
+				_ctrl.addEvent(weatherE);
 
 				dispose();
 			}
 			catch(Exception ex) {
 				JOptionPane.showMessageDialog(
 						this,
-						"[ERROR] Failed to create CO2 change event",
+						"[ERROR] Failed to create Weather change event",
 						"Error",
 						JOptionPane.ERROR_MESSAGE
 					);
