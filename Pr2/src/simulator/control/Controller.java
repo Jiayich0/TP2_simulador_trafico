@@ -110,4 +110,9 @@ public class Controller {
 			_sim.advance();
 		}
 	}
+	
+	// Para changeCO2CLassDialog
+	public int getCurrentTime() {
+	    return _sim.getTime();
+	}
 }

@@ -70,6 +70,10 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		return js;
 	}
+	
+	public int getTime() {
+	    return _time;
+	}
 
 	// Interfaz
 	@Override

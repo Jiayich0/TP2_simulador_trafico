@@ -56,7 +56,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
         loadEventsButton(toolBar);
         toolBar.addSeparator(new Dimension(12, 36));
         changeCO2Button(toolBar);
-        //changeWeatherButton(toolBar);
+        changeWeatherButton(toolBar);
 		toolBar.addSeparator(new Dimension(12, 36));
 		toolBar.add(_runButton);
 		toolBar.add(_stopButton);
@@ -140,12 +140,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(_changeCO2Button);
 	}
 	
-	/*private void changeWeatherButton(JToolBar toolBar) {
+	private void changeWeatherButton(JToolBar toolBar) {
 		_changeWeatherButton.addActionListener(e -> {
 			ChangeWeatherDialog dialog = new ChangeWeatherDialog(_controller, this);
 	        dialog.setVisible(true);
 		});
-	}*/
+		toolBar.add(_changeWeatherButton);
+	}
 	
 	private void algoButton(JToolBar toolBar) {
 		
