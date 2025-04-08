@@ -68,7 +68,7 @@ public class ChangeWeatherDialog extends JDialog {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(e -> dispose());
 		JButton okButton = new JButton("OK");
-		okButtonAction(okButton);
+		okButton(okButton);
 		
 		buttonsPanel.add(cancelButton);
 		buttonsPanel.add(Box.createHorizontalStrut(15));
@@ -77,7 +77,7 @@ public class ChangeWeatherDialog extends JDialog {
 		mainPanel.add(buttonsPanel, BorderLayout.SOUTH);		
 	}
 	
-	private void okButtonAction(JButton okButton) {
+	private void okButton(JButton okButton) {
 		okButton.addActionListener(e -> {
 			try {
 				String vehicleId = (String)_roadsComboBox.getSelectedItem();
