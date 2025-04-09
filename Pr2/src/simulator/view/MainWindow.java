@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 
 import simulator.control.Controller;
 
@@ -29,6 +31,8 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initGUI() {
+		defaultColors();
+		
 		// Se crea un panel principal
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
@@ -37,7 +41,7 @@ public class MainWindow extends JFrame {
 		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
 		
 		// Se añade abajo el panel de estados -> StatusBar
-		//mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
+		mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
 		
 		// Se crea en el centro un panel para las tablas y mapas
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
@@ -52,8 +56,6 @@ public class MainWindow extends JFrame {
 		JPanel mapsPanel = new JPanel();
 		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(mapsPanel);
-		
-		
 		
 		
 		// tables
@@ -85,5 +87,15 @@ public class MainWindow extends JFrame {
             // TODO add a framed border to p with title
 		p.add(new JScrollPane(c));
 		return p;
+	}
+	
+	private void defaultColors() {
+		UIManager.put("OptionPane.background", MyColors.GRIS_CLARO);
+		UIManager.put("Panel.background", MyColors.GRIS_CLARO);
+		UIManager.put("OptionPane.messageForeground", MyColors.BLANCO);
+		
+		UIManager.put("Button.background", MyColors.AZUL);
+		UIManager.put("Button.foreground", MyColors.BLANCO);
+		UIManager.put("Button.font", new Font("Tahoma", Font.BOLD, 13));
 	}
 }
