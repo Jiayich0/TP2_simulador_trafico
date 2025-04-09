@@ -1,9 +1,9 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.util.Collection;
@@ -13,8 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -41,7 +43,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton _exitButton;
 	private boolean _stopped;
 
-	
 	ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
 		_stopped = true;
@@ -53,9 +54,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.setLayout(new BorderLayout());
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(true);
+		toolBar.setBackground(MyColors.GRIS_CLARO);
 		initializeAllButtons();
 		
-        
         loadEventsButton(toolBar);
         toolBar.addSeparator(new Dimension(12, 36));
         changeCO2Button(toolBar);
@@ -64,13 +65,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		runButton(toolBar);
 		stopButton(toolBar);
 		toolBar.addSeparator(new Dimension(4, 36));
-		toolBar.add(new JLabel("Ticks: "));
+		ticksLabel(toolBar);
 		toolBar.add(_ticksSpinner);
-		toolBar.add(Box.createHorizontalGlue()); // Empuja el botón a la derecha
+		toolBar.add(Box.createHorizontalGlue()); 			// Empuja el botón a la derecha
 		exitButton(toolBar);
         
         this.add(toolBar, BorderLayout.NORTH);
-
     }
 	
 	private void initializeAllButtons() {
@@ -86,28 +86,28 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton createButton(String iconPath) {
 	    JButton button = new JButton();
 	    
-	    // Para que los iconos no se vean tan pixelados (y poder escalar) 
-	    ImageIcon icon = new ImageIcon(iconPath);
-	    Image img = icon.getImage().getScaledInstance(36, 36, Image.SCALE_SMOOTH);
-	    button.setIcon(new ImageIcon(img));
-	    
 	    button.setIcon(new ImageIcon(iconPath));
 	    
-	    button.setBorderPainted(true);		// Quita el borde negro 
+	    button.setBorderPainted(true);		// Pone el borde
 	    button.setFocusPainted(false);		// Quita el recuadro de la imagen al ser seleccionado
 	    button.setContentAreaFilled(true);	// Color de fondo
-	    button.setBackground(Color.MAGENTA);
+	    button.setBackground(MyColors.AZUL);
 	    
 	    return button;
 	}
 	 
 	private JSpinner createSpinner() {
 		 // valor incial, minimo, maximo, paso(cuantos ticks aumentas/disminuyes por click)
-		 SpinnerNumberModel model = new SpinnerNumberModel(10, 1, 10000, 1);
-		 JSpinner spinner = new JSpinner(model);
-		 spinner.setMaximumSize(new Dimension(60, 40));
+		SpinnerNumberModel model = new SpinnerNumberModel(10, 1, 10000, 1);
+		JSpinner spinner = new JSpinner(model);
+		spinner.setMaximumSize(new Dimension(60, 40));
 		 
-		 return spinner;
+		JFormattedTextField txt = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+		txt.setBackground(MyColors.AZUL);
+		txt.setForeground(MyColors.BLANCO);
+		txt.setFont(new Font("Tahoma", Font.BOLD, 12));
+		 
+		return spinner;
 	}
 	
 	
@@ -186,6 +186,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(_runButton);
 	}
 	
+	private void ticksLabel(JToolBar toolBar) {
+		JLabel ticksLabel = new JLabel("Ticks: ");
+		ticksLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ticksLabel.setForeground(MyColors.BLANCO);
+		
+		toolBar.add(ticksLabel);
+	}
+	
 	private void run_sim(int n) {
 		if (n > 0 && !_stopped) {
 			try {
@@ -221,20 +229,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	@Override
-	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
-	}
+	public void onAdvance(RoadMap map, Collection<Event> events, int time) {}
 
 	@Override
-	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
-	}
+	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {}
 
 	@Override
-	public void onReset(RoadMap map, Collection<Event> events, int time) {
-	}
+	public void onReset(RoadMap map, Collection<Event> events, int time) {}
 
 	@Override
-	public void onRegister(RoadMap map, Collection<Event> events, int time) {
-	}
+	public void onRegister(RoadMap map, Collection<Event> events, int time) {}
 
 }
 
