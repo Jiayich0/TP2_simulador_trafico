@@ -2,18 +2,14 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.io.FileInputStream;
 import java.util.Collection;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -22,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
-import javax.swing.JSeparator;
 
 import simulator.control.Controller;
 import simulator.model.Event;

@@ -33,7 +33,6 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		defaultColors();
 		
-		// Se crea un panel principal
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
 		
@@ -59,21 +58,53 @@ public class MainWindow extends JFrame {
 		
 		
 		// tables
-		//JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
-		//eventsView.setPreferredSize(new Dimension(500, 200));
-		//tablesPanel.add(eventsView);
-		// TODO add other tables
-		// ...
-		tablesPanel.add(createViewPanel(new JTable(), "Events"));
-	    tablesPanel.add(createViewPanel(new JTable(), "Vehicles"));
-	    tablesPanel.add(createViewPanel(new JTable(), "Roads"));
-	    tablesPanel.add(createViewPanel(new JTable(), "Junctions"));
+		/*String[] titles = { "Events", "Vehicles", "Roads", "Junctions" };
+		JTable[] tables = {
+			new JTable(new EventsTableModel(_ctrl)),
+			new JTable(new VehiclesTableModel(_ctrl)),
+			new JTable(new RoadsTableModel(_ctrl)),
+			new JTable(new JunctionsTableModel(_ctrl))
+		};
+		
+		for (int i = 0; i < tables.length; i++) {
+			setTableConfig(tables[i]);
+			JPanel view = createViewPanel(tables[i], titles[i]);
+			view.setPreferredSize(new Dimension(500, 200));
+			tablesPanel.add(view);
+		}*/
+		JTable eventsTable = new JTable(new EventsTableModel(_ctrl));
+		JTable vehiclesTable = new JTable(new VehiclesTableModel(_ctrl));
+		JTable roadsTable = new JTable(new RoadsTableModel(_ctrl));
+		//JTable junctionsTable = new JTable(new JunctionsTableModel(_ctrl));
+		
+		setTableConfig(eventsTable);
+		setTableConfig(vehiclesTable);
+		setTableConfig(roadsTable);
+		//setTableConfig(junctionsTable);
+		
+		JPanel eventsView = createViewPanel(eventsTable, "Events");
+		JPanel vehiclesView = createViewPanel(vehiclesTable, "Vehicles");
+		JPanel roadsView = createViewPanel(roadsTable, "Roads");
+		//JPanel junctionsView = createViewPanel(junctionsTable, "Junctions");
+		
+		eventsView.setPreferredSize(new Dimension(500, 200));
+		vehiclesView.setPreferredSize(new Dimension(500, 200));
+		roadsView.setPreferredSize(new Dimension(500, 200));
+		//junctionsView.setPreferredSize(new Dimension(500, 200));
+		
+		tablesPanel.add(eventsView);
+		tablesPanel.add(vehiclesView);
+		tablesPanel.add(roadsView);
+		//tablesPanel.add(junctionsView);
+		
 
 		// maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
 		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
+		
 		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
+		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapRoadView);
 		
 		
@@ -85,7 +116,9 @@ public class MainWindow extends JFrame {
 	private JPanel createViewPanel(JComponent c, String title) {
 		JPanel p = new JPanel( new BorderLayout() );
             // TODO add a framed border to p with title
-		p.add(new JScrollPane(c));
+		JScrollPane scroll = new JScrollPane(c);
+		scroll.getViewport().setBackground(MyColors.GRIS_CLARO);
+		p.add(scroll);
 		return p;
 	}
 	
@@ -98,4 +131,43 @@ public class MainWindow extends JFrame {
 		UIManager.put("Button.foreground", MyColors.BLANCO);
 		UIManager.put("Button.font", new Font("Tahoma", Font.BOLD, 13));
 	}
+	
+	private void setTableConfig(JTable table) {
+		table.getTableHeader().setBackground(MyColors.AZUL);
+		table.getTableHeader().setForeground(MyColors.BLANCO);
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 10));
+		
+		table.setBackground(MyColors.GRIS_CLARO);
+		table.setForeground(MyColors.BLANCO);
+		table.setFont(new Font("Tahoma", Font.BOLD, 11));
+	}
 }
+
+
+/*		FIXMe - Demasiado texto -> sustituido por bucle -> borrar más tarde (aún útil para probar las tablas a medida que se vayan implementando
+
+ 		JTable eventsTable = new JTable(new EventsTableModel(_ctrl));
+		JTable vehiclesTable = new JTable(new VehiclesTableModel(_ctrl));
+		JTable roadsTable = new JTable(new RoadsTableModel(_ctrl));
+		JTable junctionsTable = new JTable(new JunctionsTableModel(_ctrl));
+		
+		setTableConfig(eventsTable);
+		setTableConfig(vehiclesTable);
+		setTableConfig(roadsTable);
+		setTableConfig(junctionsTable);
+		
+		JPanel eventsView = createViewPanel(eventsTable, "Events");
+		JPanel vehiclesView = createViewPanel(vehiclesTable, "Vehicles");
+		JPanel roadsView = createViewPanel(roadsTable, "Roads");
+		JPanel junctionsView = createViewPanel(junctionsTable, "Junctions");
+		
+		eventsView.setPreferredSize(new Dimension(500, 200));
+		vehiclesView.setPreferredSize(new Dimension(500, 200));
+		roadsView.setPreferredSize(new Dimension(500, 200));
+		junctionsView.setPreferredSize(new Dimension(500, 200));
+		
+		tablesPanel.add(eventsView);
+		tablesPanel.add(vehiclesView);
+		tablesPanel.add(roadsView);
+		tablesPanel.add(junctionsView);
+ */
