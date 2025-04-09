@@ -58,7 +58,7 @@ public class MainWindow extends JFrame {
 		
 		
 		// tables
-		/*String[] titles = { "Events", "Vehicles", "Roads", "Junctions" };
+		String[] titles = { "Events", "Vehicles", "Roads", "Junctions" };
 		JTable[] tables = {
 			new JTable(new EventsTableModel(_ctrl)),
 			new JTable(new VehiclesTableModel(_ctrl)),
@@ -71,32 +71,8 @@ public class MainWindow extends JFrame {
 			JPanel view = createViewPanel(tables[i], titles[i]);
 			view.setPreferredSize(new Dimension(500, 200));
 			tablesPanel.add(view);
-		}*/
-		JTable eventsTable = new JTable(new EventsTableModel(_ctrl));
-		JTable vehiclesTable = new JTable(new VehiclesTableModel(_ctrl));
-		JTable roadsTable = new JTable(new RoadsTableModel(_ctrl));
-		//JTable junctionsTable = new JTable(new JunctionsTableModel(_ctrl));
-		
-		setTableConfig(eventsTable);
-		setTableConfig(vehiclesTable);
-		setTableConfig(roadsTable);
-		//setTableConfig(junctionsTable);
-		
-		JPanel eventsView = createViewPanel(eventsTable, "Events");
-		JPanel vehiclesView = createViewPanel(vehiclesTable, "Vehicles");
-		JPanel roadsView = createViewPanel(roadsTable, "Roads");
-		//JPanel junctionsView = createViewPanel(junctionsTable, "Junctions");
-		
-		eventsView.setPreferredSize(new Dimension(500, 200));
-		vehiclesView.setPreferredSize(new Dimension(500, 200));
-		roadsView.setPreferredSize(new Dimension(500, 200));
-		//junctionsView.setPreferredSize(new Dimension(500, 200));
-		
-		tablesPanel.add(eventsView);
-		tablesPanel.add(vehiclesView);
-		tablesPanel.add(roadsView);
-		//tablesPanel.add(junctionsView);
-		
+		}
+
 
 		// maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");

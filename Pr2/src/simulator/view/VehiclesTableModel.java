@@ -9,6 +9,7 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
+import simulator.model.VehicleStatus;
 
 public class VehiclesTableModel extends AbstractTableModel implements TrafficSimObserver {
 	
@@ -16,7 +17,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 	
 	private Controller _ctrl;
 	private List<Vehicle> _vehicles = new ArrayList<>();
-	private final String[] _colNames = {"Id", "Location", "Itinerary", "CO2 Class", "Max Speed", "Speed", "Total CO2", "Distance"};
+	private final String[] _colNames = {"Id", "Status", "Itinerary", "CO2 Class", "Max Speed", "Speed", "Total CO2", "Distance"};
 	
 	VehiclesTableModel(Controller ctrl){
 		_ctrl = ctrl;
@@ -43,7 +44,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 		
 		switch (columnIndex) {
 			case 0: return v.getId();
-			case 1: return v.getLocation();
+			case 1: return createStatus(v);
 			case 2: return v.getItinerary(); //TODO no se si devuelve bien, mirarlo y a ver si usa bien el toString()
 			case 3: return v.getContClass();
 			case 4: return v.getMaxSpeed();
@@ -53,7 +54,19 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 			default: return null;
 		}
 	}
-
+	
+	private String createStatus(Vehicle v) {
+		VehicleStatus status = v.getStatus();
+		
+		switch(status) {
+			case PENDING: return "Pending";
+			case TRAVELING: return v.getRoad().getId() + ":" + v.getLocation();
+			case WAITING: return "Waiting:" + v.getRoad().getDest().getId();
+			case ARRIVED: return "Arrived";
+			default: return null;
+		}
+	}
+	
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
 		onUpdate(map);
