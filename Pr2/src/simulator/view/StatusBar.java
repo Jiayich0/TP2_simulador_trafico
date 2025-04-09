@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.Collection;
 
 import javax.swing.BorderFactory;
@@ -38,10 +39,14 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		toolBar.setBackground(MyColors.GRIS_CLARO);
 		
 		_timeLabel = new JLabel("Time:   0");
+		_timeLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		_timeLabel.setForeground(MyColors.BLANCO);
 		_msgLabel = new JLabel("No changes");
+		_msgLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		_msgLabel.setForeground(MyColors.BLANCO);
 		
 		JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
-		sep.setBackground(MyColors.GRIS);
+		sep.setBackground(MyColors.BLANCO);
 		
 		toolBar.addSeparator(new Dimension(4, 20));
 		toolBar.add(_timeLabel);
