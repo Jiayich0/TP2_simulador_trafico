@@ -31,6 +31,15 @@ public class SetWeatherEvent extends Event {
 	
 	@Override
 	public String toString() {
-	    return "Set Weather '" + _ws + "'";
+		StringBuilder sb = new StringBuilder();
+		sb.append("Change Weather: [");
+		Pair<String, Weather> p;
+		for (int i = 0; i < _ws.size(); i++) {
+			p = _ws.get(i);
+			sb.append("(").append(p.getFirst()).append(",").append(p.getSecond()).append(")");
+			if (i < _ws.size() - 1) sb.append(", ");
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 }

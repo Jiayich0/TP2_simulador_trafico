@@ -31,6 +31,15 @@ public class SetContClassEvent extends Event {
 	
 	@Override
 	public String toString() {
-	    return "Set Contamination Class '" + _cs + "'";
+		StringBuilder sb = new StringBuilder();
+		sb.append("Change CO2 class: [");
+		Pair<String, Integer> p;
+		for (int i = 0; i < _cs.size(); i++) {
+			p = _cs.get(i);
+			sb.append("(").append(p.getFirst()).append(",").append(p.getSecond()).append(")");
+			if (i < _cs.size() - 1) sb.append(", ");
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 }
