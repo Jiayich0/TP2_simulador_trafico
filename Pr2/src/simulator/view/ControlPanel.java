@@ -10,6 +10,7 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -49,7 +50,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.setLayout(new BorderLayout());
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(true);
-		toolBar.setBackground(MyColors.GRIS_CLARO);
+		toolBar.setBackground(MyColors.FONDO2);
 		initializeAllButtons();
 		
         loadEventsButton(toolBar);
@@ -86,7 +87,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	    button.setBorderPainted(true);		// Pone el borde
 	    button.setFocusPainted(false);		// Quita el recuadro de la imagen al ser seleccionado
 	    button.setContentAreaFilled(true);	// Color de fondo
-	    button.setBackground(MyColors.AZUL);
+	    button.setBackground(MyColors.ELEMENTOS);
 	    
 	    return button;
 	}
@@ -98,8 +99,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		spinner.setMaximumSize(new Dimension(60, 40));
 		 
 		JFormattedTextField txt = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
-		txt.setBackground(MyColors.AZUL);
-		txt.setForeground(MyColors.BLANCO);
+		txt.setBackground(MyColors.ELEMENTOS);
+		txt.setForeground(MyColors.TEXTO);
 		txt.setFont(new Font("Tahoma", Font.BOLD, 12));
 		 
 		return spinner;
@@ -118,6 +119,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						_ctrl.reset();
 						_ctrl.loadEvents(fileInput);
 					} catch (Exception except) {
+						except.printStackTrace();
 			            JOptionPane.showMessageDialog(this, "[Error] Failed loading events file", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -148,6 +150,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private void exitButton(JToolBar toolBar) {
 		_exitButton.addActionListener(e -> {
+			UIManager.put("OptionPane.background", MyColors.FONDO2);
+			UIManager.put("Panel.background", MyColors.FONDO2);
 			int result = JOptionPane.showConfirmDialog(
 				null,		// Centra el dialogo
 				"Are you sure you want to exit the simulator?",
@@ -184,7 +188,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void ticksLabel(JToolBar toolBar) {
 		JLabel ticksLabel = new JLabel("Ticks: ");
 		ticksLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		ticksLabel.setForeground(MyColors.BLANCO);
+		ticksLabel.setForeground(MyColors.TEXTO);
 		
 		toolBar.add(ticksLabel);
 	}
@@ -193,6 +197,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		if (n > 0 && !_stopped) {
 			try {
 				_ctrl.run(1);
+				Thread.sleep(500); // Para hacer pruebas FIXME borrar
 	         	SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "[ERROR] An error occurred during simulation", "Simulation Error", JOptionPane.ERROR_MESSAGE);

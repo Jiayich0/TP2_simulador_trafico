@@ -50,7 +50,7 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		msgPanel.add(createLabel("Schedule an event to change the CO2 class of a vehicle after a given     "));
 		msgPanel.add(createLabel("number of simulation ticks from now."));
 		
-		msgPanel.setBackground(MyColors.GRIS_CLARO);
+		msgPanel.setBackground(MyColors.FONDO2);
 		mainPanel.add(msgPanel, BorderLayout.NORTH);
 		
 		// Panel con cosas
@@ -66,7 +66,7 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		spinnerPanel.add(createLabel("Ticks:"));
 		spinnerPanel.add(_ticksSpinner);
 		
-		spinnerPanel.setBackground(MyColors.GRIS_CLARO);
+		spinnerPanel.setBackground(MyColors.FONDO2);
 		mainPanel.add(spinnerPanel, BorderLayout.CENTER);
 		
 		// cancel - ok
@@ -82,15 +82,15 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		buttonsPanel.add(Box.createHorizontalStrut(15));
 		buttonsPanel.add(okButton);
 
-		buttonsPanel.setBackground(MyColors.GRIS_CLARO);
+		buttonsPanel.setBackground(MyColors.FONDO2);
 		mainPanel.add(buttonsPanel, BorderLayout.SOUTH);		
 	}
 	
 	private JButton createButton(String buttonName) {
 		JButton button = new JButton(buttonName);
 		
-	    button.setBackground(MyColors.AZUL);
-	    button.setForeground(MyColors.BLANCO);
+	    button.setBackground(MyColors.ELEMENTOS);
+	    button.setForeground(MyColors.TEXTO);
 	    button.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		return button;
@@ -100,7 +100,7 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		JLabel label = new JLabel(buttonName);
 		
 		label.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label.setForeground(MyColors.BLANCO);
+		label.setForeground(MyColors.TEXTO);
 		
 		return label;
 	}
@@ -109,8 +109,8 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		JSpinner spinner = new JSpinner(spinnerNM);
  
 		JFormattedTextField txt = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
-		txt.setBackground(MyColors.AZUL);
-		txt.setForeground(MyColors.BLANCO);
+		txt.setBackground(MyColors.ELEMENTOS);
+		txt.setForeground(MyColors.TEXTO);
 		txt.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		return spinner;

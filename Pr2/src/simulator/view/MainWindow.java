@@ -79,9 +79,9 @@ public class MainWindow extends JFrame {
 		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
 		
-		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
-		mapView.setPreferredSize(new Dimension(500, 400));
-		mapsPanel.add(mapRoadView);
+		//JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
+		//mapView.setPreferredSize(new Dimension(500, 400));
+		//mapsPanel.add(mapRoadView);
 		
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -93,28 +93,28 @@ public class MainWindow extends JFrame {
 		JPanel p = new JPanel( new BorderLayout() );
             // TODO add a framed border to p with title
 		JScrollPane scroll = new JScrollPane(c);
-		scroll.getViewport().setBackground(MyColors.GRIS_CLARO);
+		scroll.getViewport().setBackground(MyColors.FONDO1);
 		p.add(scroll);
 		return p;
 	}
 	
 	private void defaultColors() {
-		UIManager.put("OptionPane.background", MyColors.GRIS_CLARO);
-		UIManager.put("Panel.background", MyColors.GRIS_CLARO);
-		UIManager.put("OptionPane.messageForeground", MyColors.BLANCO);
+		UIManager.put("OptionPane.background", MyColors.FONDO1);
+		UIManager.put("Panel.background", MyColors.FONDO1);
+		UIManager.put("OptionPane.messageForeground", MyColors.TEXTO);
 		
-		UIManager.put("Button.background", MyColors.AZUL);
-		UIManager.put("Button.foreground", MyColors.BLANCO);
+		UIManager.put("Button.background", MyColors.ELEMENTOS);
+		UIManager.put("Button.foreground", MyColors.TEXTO);
 		UIManager.put("Button.font", new Font("Tahoma", Font.BOLD, 13));
 	}
 	
 	private void setTableConfig(JTable table) {
-		table.getTableHeader().setBackground(MyColors.AZUL);
-		table.getTableHeader().setForeground(MyColors.BLANCO);
+		table.getTableHeader().setBackground(MyColors.ELEMENTOS);
+		table.getTableHeader().setForeground(MyColors.TEXTO);
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 10));
 		
-		table.setBackground(MyColors.GRIS_CLARO);
-		table.setForeground(MyColors.BLANCO);
+		table.setBackground(MyColors.FONDO2);
+		table.setForeground(MyColors.TEXTO);
 		table.setFont(new Font("Tahoma", Font.BOLD, 11));
 	}
 }

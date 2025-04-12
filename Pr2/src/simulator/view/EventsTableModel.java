@@ -8,6 +8,8 @@ import simulator.control.Controller;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Event;
 import simulator.model.RoadMap;
+import simulator.model.SetContClassEvent;
+import simulator.model.SetWeatherEvent;
 
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
@@ -64,7 +66,21 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 	
 	private void onUpdate(Collection<Event> events) {
-		_events = new ArrayList<>(events);;
+		//_events = new ArrayList<>(events);;
+		// TODO
+		// Imprime todos los eventos, en cambio, en el ejemplo de la demo solo muestra de los changeCO2 
+		// y changeWeather events. Preguntar al profe si tiene o no que imprimir todos. Tambien
+		// preguntar si se puede usar instanceof, a diferencia de TP1
+
+		
+		_events = new ArrayList<>();;
+		
+		for (Event e : events) {
+	        if (e instanceof SetWeatherEvent || e instanceof SetContClassEvent) {
+	            _events.add(e);
+	        }
+	    }
+		
 		fireTableStructureChanged();
 	}
 }
