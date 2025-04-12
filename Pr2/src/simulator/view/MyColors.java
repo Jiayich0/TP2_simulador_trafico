@@ -2,19 +2,9 @@ package simulator.view;
 
 import java.awt.Color;
 
-/*public class MyColors  {
+public class MyColors {
 	
-	public static final Color ELEMENTOS = new Color(0x8c, 0xa4, 0xf4);  // #7289da azul Discord un poco más claro
-	public static final Color TEXTO = Color.WHITE;                 		// #ffffff
-	public static final Color FONDO1 = new Color(0xc9, 0xd4, 0xdc); 	// #c9d4dc gris claro para fondos
-	public static final Color FONDO2 = new Color(0x99, 0xaa, 0xb5);		// #99aab5 gris oscuro Discord
-
-    private MyColors() {}
-}*/
-
-public class MyColors  {
-	
-	private static final String _option = "verde";
+	private static final String _option = " ";
 	
 	public static Color ELEMENTOS = new Color(0x8c, 0xa4, 0xf4);	// #7289da azul Discord un poco más claro
     public static Color TEXTO = Color.WHITE;                 		// #ffffff
@@ -48,19 +38,3 @@ public class MyColors  {
     	}
     }
 }
-	
-
-//public static final Color ELEMENTOS; = new Color(0x8c, 0xa4, 0xf4);  // #7289da azul Discord un poco más claro
-//public static final Color TEXTO = Color.WHITE;                 		// #ffffff
-//public static final Color FONDO1 = new Color(0xc9, 0xd4, 0xdc); 	// #c9d4dc gris claro para fondos
-//public static final Color FONDO2 = new Color(0x99, 0xaa, 0xb5);		// #99aab5 gris oscuro Discord
-
-/*public class MyColors  {
-	
-	public static final Color ELEMENTOS = new Color(0xe0, 0x21, 0xd8);
-    public static final Color TEXTO = Color.WHITE;
-    public static final Color FONDO1 = new Color(0xff, 0xc0, 0xed);
-    public static final Color FONDO2 = new Color(0xf6, 0x58, 0xb8);
-
-    private MyColors() {}
-}*/
