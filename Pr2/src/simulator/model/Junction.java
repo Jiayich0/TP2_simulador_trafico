@@ -159,9 +159,4 @@ public class Junction extends SimulatedObject {
 	public List<Road> getInRoads() {
 		return _incomingRoads;
 	}
-	
-	/*TODO verificar esto con vehiclesTableModel
- 	public String toString() {
-		return _id;
-	}*/
 }
