@@ -18,7 +18,7 @@ public class RoadMap {
 	private Map<String, Road> _roadsMap;
 	private Map<String, Vehicle> _vehiclesMap;
 	
-	RoadMap() {
+	public RoadMap() {
         _junctions = new ArrayList<>();
         _roads = new ArrayList<>();
         _vehicles = new ArrayList<>();

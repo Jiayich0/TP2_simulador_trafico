@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -26,14 +27,14 @@ import simulator.model.VehicleStatus;
 public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private static final int _JRADIUS = 10;
-
-	private static final Color _BG_COLOR = Color.WHITE;
+	
 	private static final Color _JUNCTION_COLOR = Color.BLUE;
 	private static final Color _JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
 	private static final Color _GREEN_LIGHT_COLOR = Color.GREEN;
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
+
 
 	private RoadMap _map;
 	private Image _car;
@@ -49,13 +50,13 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	public void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
-		Graphics2D g = (Graphics2D) graphics;
+		Graphics2D g = (Graphics2D) graphics; // Mejora calidad
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
+		
 		// clear with a background color
-		g.setColor(_BG_COLOR);
-		g.clearRect(0, 0, getWidth(), getHeight());
+		g.setColor(MyColors.FONDO1);
+		g.fillRect(0, 0, getWidth(), getHeight()); // fill en vez de clear para usar el color de fondo que quiero
 
 		if (_map == null || _map.getJunctions().size() == 0) {
 			g.setColor(Color.red);
@@ -146,7 +147,8 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 			// draw the junction's identifier at (x,y)
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(j.getId(), x, y);
+			g.setFont(new Font("Tahoma", Font.BOLD, 10));
+			g.drawString(j.getId(), x - 4, y + 20);
 		}
 	}
 
@@ -161,10 +163,10 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		}
 		maxW += 20;
 		maxH += 20;
-		if (maxW > getWidth() || maxH > getHeight()) {
-			setPreferredSize(new Dimension(maxW, maxH));
-			setSize(new Dimension(maxW, maxH));
-		}
+		
+		// Sin if para que se borre/actualice scrollBar cuando no sea necesario
+		setPreferredSize(new Dimension(maxW, maxH));
+		setSize(new Dimension(maxW, maxH));
 	}
 
 	// This method draws a line from (x1,y1) to (x2,y2) with an arrow.
@@ -212,6 +214,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	public void update(RoadMap map) {
 		SwingUtilities.invokeLater(() -> {
 			_map = map;
+			updatePrefferedSize();			// Necesario para el segundo loadEvent
 			repaint();
 		});
 	}

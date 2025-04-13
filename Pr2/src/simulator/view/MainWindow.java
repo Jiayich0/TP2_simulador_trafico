@@ -89,7 +89,14 @@ public class MainWindow extends JFrame {
 	private JPanel createViewPanel(JComponent c, String title) {
 		JPanel p = new JPanel( new BorderLayout() );
             // TODO add a framed border to p with title
-		JScrollPane scroll = new JScrollPane(c);
+		
+		// Forzar a que no haya horizontal scroll en los componentes que no sean MapComponent
+		JScrollPane scroll;
+		if (c instanceof MapComponent) {
+		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		} else {
+		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		}
 		scroll.getViewport().setBackground(MyColors.FONDO1);
 		p.add(scroll);
 		return p;
