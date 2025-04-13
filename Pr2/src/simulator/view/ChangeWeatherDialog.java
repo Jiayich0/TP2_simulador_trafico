@@ -172,10 +172,5 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 		for (Road r: map.getRoads()) {
 			_roadsComboBox.addItem(r.getId());
 		}
-		
-		// FIXME: borrar despues de probar
-		_roadsComboBox.addItem("r1");
-		_roadsComboBox.addItem("r2");
-		_roadsComboBox.addItem("r3");
 	}
 }

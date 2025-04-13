@@ -47,13 +47,13 @@ public class MainWindow extends JFrame {
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		
 		// Se crea dentro de viewsPanel el panel de las tablas (izquierda)
-		JPanel tablesPanel = new JPanel();
-		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
+		// En vez de un BoxLayout un GridLayout para manejar directamente que sean 4 partes iguales
+		JPanel tablesPanel = new JPanel(new GridLayout(4, 1));
 		viewsPanel.add(tablesPanel);
 		
 		// Se crea dentor de viewsPanel el panel de los mapas (derecha)
-		JPanel mapsPanel = new JPanel();
-		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
+		// Igual que tablesPanel pero en dos partes
+		JPanel mapsPanel = new JPanel(new GridLayout(2, 1));
 		viewsPanel.add(mapsPanel);
 		
 		
@@ -69,19 +69,16 @@ public class MainWindow extends JFrame {
 		for (int i = 0; i < tables.length; i++) {
 			setTableConfig(tables[i]);
 			JPanel view = createViewPanel(tables[i], titles[i]);
-			view.setPreferredSize(new Dimension(500, 200));
 			tablesPanel.add(view);
 		}
 
 
 		// maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
-		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
 		
-		//JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
-		//mapView.setPreferredSize(new Dimension(500, 400));
-		//mapsPanel.add(mapRoadView);
+		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
+		mapsPanel.add(mapRoadView);
 		
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -116,6 +113,8 @@ public class MainWindow extends JFrame {
 		table.setBackground(MyColors.FONDO2);
 		table.setForeground(MyColors.TEXTO);
 		table.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		table.getTableHeader().setReorderingAllowed(true);		// Permitir o no mover el Header/Título
 	}
 }
 

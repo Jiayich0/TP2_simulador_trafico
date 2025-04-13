@@ -162,9 +162,5 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		for (Vehicle v: map.getVehicles()) {
 			_vehiclesComboBox.addItem(v.getId());
 		}
-		// FIXME: borrar despues de probar
-		_vehiclesComboBox.addItem("v1");
-		_vehiclesComboBox.addItem("v2");
-		_vehiclesComboBox.addItem("v3");
 	}
 }

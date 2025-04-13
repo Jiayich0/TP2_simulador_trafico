@@ -45,7 +45,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 		switch (columnIndex) {
 			case 0: return v.getId();
 			case 1: return createStatus(v);
-			case 2: return v.getItinerary(); //TODO no se si devuelve bien, mirarlo y a ver si usa bien el toString()
+			case 2: return v.getItinerary();
 			case 3: return v.getContClass();
 			case 4: return v.getMaxSpeed();
 			case 5: return v.getSpeed();
