@@ -157,7 +157,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		int height = (numRoads + 1) * 50; 		// 50 pixeles para cada carretera (con 1 extra como margen)
 		// Si no hay mapa -> anchura 400 -> alienado con mapComponent
 		// Si hay mapa -> anchura w-10 -> para el scrollBar vertical
-		int width = _map.getRoads().isEmpty() ? 400 : getWidth() - 10;
+		int width = _map.getRoads().isEmpty() ? 220 : getWidth() - 1;
 		
 		setPreferredSize(new Dimension(width, height));
 		setSize(new Dimension(width, height));

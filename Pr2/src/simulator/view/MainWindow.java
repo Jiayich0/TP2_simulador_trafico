@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
@@ -88,18 +91,25 @@ public class MainWindow extends JFrame {
 
 	private JPanel createViewPanel(JComponent c, String title) {
 		JPanel p = new JPanel( new BorderLayout() );
-            // TODO add a framed border to p with title
+		addBorder(p, title);
 		
 		// Forzar a que no haya horizontal scroll en los componentes que no sean MapComponent
 		JScrollPane scroll;
 		if (c instanceof MapComponent) {
-		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		} else {
 		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		}
 		scroll.getViewport().setBackground(MyColors.FONDO1);
 		p.add(scroll);
 		return p;
+	}
+	
+	private void addBorder(JPanel p, String title) {
+		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(MyColors.FONDO2, 2), title);
+		border.setTitleFont(new Font("Tahoma", Font.BOLD, 12));
+		border.setTitleColor(MyColors.FONDO2);
+		p.setBorder(border);
 	}
 	
 	private void defaultColors() {
