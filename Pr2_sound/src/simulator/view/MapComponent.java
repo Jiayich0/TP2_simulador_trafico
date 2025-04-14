@@ -129,7 +129,8 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 				// draw an image of a car (with circle as background) and it identifier
 				g.fillOval(vX - 1, vY - 6, 14, 14);
 				g.drawImage(_car, vX, vY - 6, 12, 12, this);
-				g.drawString(v.getId(), vX, vY - 6);
+				g.setFont(new Font("Tahoma", Font.BOLD, 10));
+				g.drawString(v.getId(), vX, vY - 10);
 			}
 		}
 	}
