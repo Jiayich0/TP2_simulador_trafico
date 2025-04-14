@@ -2,6 +2,9 @@ package simulator.view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +27,10 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 	private JSpinner _ticksSpinner;
 	private Controller _ctrl;
 	
+	private String _clickSound = "resources/sounds/click.wav";
+	private String _boxSound = "resources/sounds/wear.wav";
+	private String _spinnerSound = "resources/sounds/strong2.wav"; 
+	
 	public ChangeCO2ClassDialog(Controller ctrl, ControlPanel controlPanel) {
 		super(null, "Change CO2 Class", ModalityType.DOCUMENT_MODAL); // Document modal bloquea ventana padre y sus hijos
 		// pasarle null para que lo centre en el medio y no respecto al 'parent'
@@ -33,6 +40,8 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 		_ticksSpinner = createSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		
 		initGUI();
+		initComboBoxSound();
+		initSpinnerSound();
 		pack();
 		setLocationRelativeTo(null);
 		
@@ -118,6 +127,7 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 	
 	private void okButton(JButton okButton) {
 		okButton.addActionListener(e -> {
+			Sound.playSound(_clickSound);
 			String vehicleId = (String)_vehiclesComboBox.getSelectedItem();				
 			int co2Class = (Integer)_co2ClassSpinner.getValue();
 			int ticks = (Integer)_ticksSpinner.getValue();
@@ -126,6 +136,7 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 				UIManager.put("OptionPane.background", MyColors.FONDO2);
 				UIManager.put("Panel.background", MyColors.FONDO2);
 				JOptionPane.showMessageDialog(null, "Please select a vehicle", "Input Error", JOptionPane.WARNING_MESSAGE);
+				Sound.playSound(_clickSound);
 				return;
 			}
 			
@@ -136,6 +147,36 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 			_ctrl.addEvent(contClassE);
 			
 			dispose();
+		});
+	}
+	
+	private void initComboBoxSound() {
+		/** 
+		 * Esto se llama clase interna anónima:
+		 * PopupMenuListener es una interfaz y en vez de crear una clase que implemente esta interfaz
+		 * se crea isntancia de una CLASE ANÓNIMA que implementa sus tres metods
+		 */
+		 
+		_vehiclesComboBox.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				Sound.playSound(_boxSound);
+			}
+			
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				Sound.playSound(_boxSound);
+			}
+			
+			public void popupMenuCanceled(PopupMenuEvent e) {}
+		});
+	}
+	
+	private void initSpinnerSound() {
+		_co2ClassSpinner.addChangeListener(e -> {
+			Sound.playSound(_spinnerSound);
+		});
+		
+		_ticksSpinner.addChangeListener(e -> {
+			Sound.playSound(_spinnerSound);
 		});
 	}
 	
