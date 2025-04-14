@@ -128,32 +128,24 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 
 	private void okButton(JButton okButton) {
 		okButton.addActionListener(e -> {
-			try {
-				String roadId = (String)_roadsComboBox.getSelectedItem();				
-				Weather weather = Weather.valueOf((String)_weatherComboBox.getSelectedItem());
-				int ticks = (Integer)_ticksSpinner.getValue();
-				
-				if (roadId == null) {
-					JOptionPane.showMessageDialog(null, "Please select a road", "Input Error", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				List<Pair<String, Weather>> cs = new ArrayList<>();
-				cs.add(new Pair<>(roadId, weather));
-				
-				SetWeatherEvent weatherE = new SetWeatherEvent(_ctrl.getCurrentTime() + ticks, cs);
-				_ctrl.addEvent(weatherE);
+			String roadId = (String)_roadsComboBox.getSelectedItem();				
+			Weather weather = Weather.valueOf((String)_weatherComboBox.getSelectedItem());
+			int ticks = (Integer)_ticksSpinner.getValue();
+			
+			if (roadId == null) {
+				UIManager.put("OptionPane.background", MyColors.FONDO2);
+				UIManager.put("Panel.background", MyColors.FONDO2);
+				JOptionPane.showMessageDialog(null, "Please select a road", "Input Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			List<Pair<String, Weather>> cs = new ArrayList<>();
+			cs.add(new Pair<>(roadId, weather));
+			
+			SetWeatherEvent weatherE = new SetWeatherEvent(_ctrl.getCurrentTime() + ticks, cs);
+			_ctrl.addEvent(weatherE);
 
-				dispose();
-			}
-			catch(Exception ex) {
-				JOptionPane.showMessageDialog(
-						this,
-						"[ERROR] Failed to create Weather change event",
-						"Error",
-						JOptionPane.ERROR_MESSAGE
-					);
-			}
+			dispose();
 		});
 	}
 	

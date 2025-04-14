@@ -118,32 +118,24 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 	
 	private void okButton(JButton okButton) {
 		okButton.addActionListener(e -> {
-			try {
-				String vehicleId = (String)_vehiclesComboBox.getSelectedItem();				
-				int co2Class = (Integer)_co2ClassSpinner.getValue();
-				int ticks = (Integer)_ticksSpinner.getValue();
+			String vehicleId = (String)_vehiclesComboBox.getSelectedItem();				
+			int co2Class = (Integer)_co2ClassSpinner.getValue();
+			int ticks = (Integer)_ticksSpinner.getValue();
 
-				if (vehicleId == null) {
-					JOptionPane.showMessageDialog(null, "Please select a vehicle", "Input Error", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				List<Pair<String, Integer>> cs = new ArrayList<>();
-				cs.add(new Pair<>(vehicleId, co2Class));
-				
-				SetContClassEvent contClassE = new SetContClassEvent(_ctrl.getCurrentTime() + ticks, cs);
-				_ctrl.addEvent(contClassE);
-				
-				dispose();
+			if (vehicleId == null) {
+				UIManager.put("OptionPane.background", MyColors.FONDO2);
+				UIManager.put("Panel.background", MyColors.FONDO2);
+				JOptionPane.showMessageDialog(null, "Please select a vehicle", "Input Error", JOptionPane.WARNING_MESSAGE);
+				return;
 			}
-			catch(Exception ex) {
-				JOptionPane.showMessageDialog(
-						this,
-						"[ERROR] Failed to create CO2 change event",
-						"Error",
-						JOptionPane.ERROR_MESSAGE
-					);
-			}
+			
+			List<Pair<String, Integer>> cs = new ArrayList<>();
+			cs.add(new Pair<>(vehicleId, co2Class));
+			
+			SetContClassEvent contClassE = new SetContClassEvent(_ctrl.getCurrentTime() + ticks, cs);
+			_ctrl.addEvent(contClassE);
+			
+			dispose();
 		});
 	}
 	
