@@ -218,6 +218,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				if(SimSoundObserver.DO_TIME_SLEEP) Thread.sleep(SimSoundObserver.TIME_SLEEP); // Para hacer pruebas FIXME
 	         	SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, "[ERROR] An error occurred during simulation", "Simulation Error", JOptionPane.ERROR_MESSAGE);
 				_stopped = true;
 				enableButtons();
