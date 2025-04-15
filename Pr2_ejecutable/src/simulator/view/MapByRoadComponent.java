@@ -166,7 +166,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private Image loadImage(String img) {
 		Image i = null;
 		try {
-			return ImageIO.read(new File("resources/icons/" + img));
+			return ImageIO.read(getClass().getResourceAsStream("/icons/" + img));
 		} catch (IOException e) {
 		}
 		return i;
