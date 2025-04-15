@@ -27,9 +27,9 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 	private JSpinner _ticksSpinner;
 	private Controller _ctrl;
 	
-	private String _clickSound = "resources/sounds/click.wav";
-	private String _boxSound = "resources/sounds/wear.wav";
-	private String _spinnerSound = "resources/sounds/strong2.wav"; 
+	private String _clickSound = "/sounds/click.wav";
+	private String _boxSound = "/sounds/wear.wav";
+	private String _spinnerSound = "/sounds/strong2.wav"; 
 	
 	public ChangeCO2ClassDialog(Controller ctrl, Window parent) {
 		super(parent, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);

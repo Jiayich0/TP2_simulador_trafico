@@ -33,13 +33,13 @@ public class SimSoundObserver implements TrafficSimObserver {
 	private boolean simulationCompleted = false;
 	private int _tickSoundIndex = 0;
 	
-	private final String _arrivedSound = "resources/sounds/orb.wav";
-	private final String _completedSound = "resources/sounds/levelup.wav";
+	private final String _arrivedSound = "/sounds/orb.wav";
+	private final String _completedSound = "/sounds/levelup.wav";
 	private final String[] _tickSounds = {
-		    "resources/sounds/wood1.wav",
-		    "resources/sounds/wood2.wav",
-		    "resources/sounds/wood3.wav",
-		    "resources/sounds/wood4.wav"
+		    "/sounds/wood1.wav",
+		    "/sounds/wood2.wav",
+		    "/sounds/wood3.wav",
+		    "/sounds/wood4.wav"
 		};
 	
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {

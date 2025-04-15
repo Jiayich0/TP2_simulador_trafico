@@ -39,10 +39,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton _exitButton;
 	private boolean _stopped;
 	
-	private String _openSound = "resources/sounds/chest_open.wav";
-	private String _closeSound = "resources/sounds/chest_close.wav";
-	private String _clickSound = "resources/sounds/click.wav";
-	private String _spinnerSound = "resources/sounds/strong2.wav"; 
+	private String _openSound = "/sounds/chest_open.wav";
+	private String _closeSound = "/sounds/chest_close.wav";
+	private String _clickSound = "/sounds/click.wav";
+	private String _spinnerSound = "/sounds/strong2.wav"; 
 
 	ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;

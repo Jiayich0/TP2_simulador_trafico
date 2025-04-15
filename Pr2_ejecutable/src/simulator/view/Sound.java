@@ -1,7 +1,7 @@
 package simulator.view;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,9 +15,9 @@ public class Sound {
 	private static float _volume = -25.0f;	// la f es para indicar que es un float (no un double)
 	
 	public static void playSound(String soundFilePath) {
-		try {
-			File soundFile = new File(soundFilePath);
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		try {	
+			InputStream soundInputStream = Sound.class.getResourceAsStream(soundFilePath);
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundInputStream);
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			
