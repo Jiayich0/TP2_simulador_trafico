@@ -45,6 +45,16 @@ public class MyColors {
     		    FONDO1 = new Color(0xffc0d);
     		    FONDO2 = new Color(0xff1ac6);
     			break;
+    		case "choco":
+    			ELEMENTOS = new Color(0x461904);
+    		    FONDO1 = new Color(0xfce3a1);
+    		    FONDO2 = new Color(0x6c3822);
+    			break;
+    		case "verdeAzul":
+    			ELEMENTOS = new Color(0x09345a);
+    		    FONDO1 = new Color(0x86d562);
+    		    FONDO2 = new Color(0x9aa0a4);
+    			break;
     	}
     }
 }
