@@ -64,7 +64,7 @@ public class SimSoundObserver implements TrafficSimObserver {
 	        }
 	    }
 
-	    if (allArrived && !simulationCompleted) {
+	    if (allArrived && !simulationCompleted && !arrivedVehicles.isEmpty()) {
 	    	// simulationCompleted para evitar que se reproduzca el sonido en bucle
 	    	// despues de que hayan llegado todos cuando se sigue corriendoe l programa
 	        simulationCompleted = true;
