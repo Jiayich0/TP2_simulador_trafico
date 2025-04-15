@@ -25,9 +25,9 @@ public class SimSoundObserver implements TrafficSimObserver {
 	 * 		TIME_SLEEP = 500;
 	 * 		_tickInterval = 1;
 	 */
-	public static final boolean DO_TIME_SLEEP = true;
+	public static final boolean DO_TIME_SLEEP = false;
 	public static final int TIME_SLEEP = 500;
-	private final int _tickInterval = 1;
+	private final int _tickInterval = 40;
 	
 	private Set<String> arrivedVehicles = new HashSet<>();
 	private boolean simulationCompleted = false;
