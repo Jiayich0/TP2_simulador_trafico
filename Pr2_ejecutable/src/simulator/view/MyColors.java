@@ -9,6 +9,8 @@ public class MyColors {
 	 * 		- rosa		[tonos rosa]		->	"rosa"
 	 * 		- verde 	[verde-marrón]		->	"verde"
 	 * 		- hoppip  [paleta del pokemon]	->	"hoppip"
+	 * 		- choco		[marrón]			->	"choco"
+	 * 		- verde2	[verde-azul]		->	"verdeAzul"
 	 */
 	private static final String _option = " ";
 	
