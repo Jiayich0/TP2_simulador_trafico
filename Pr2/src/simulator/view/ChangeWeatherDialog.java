@@ -25,8 +25,8 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 	private JSpinner _ticksSpinner;
 	private Controller _ctrl;
 	
-	public ChangeWeatherDialog(Controller ctrl, ControlPanel controlPanel) {
-		super(null, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
+	public ChangeWeatherDialog(Controller ctrl, Window parent) {
+		super(parent, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
 		_ctrl = ctrl;
 		_roadsComboBox = new JComboBox<>();
 		_weatherComboBox = createWeatherBox();

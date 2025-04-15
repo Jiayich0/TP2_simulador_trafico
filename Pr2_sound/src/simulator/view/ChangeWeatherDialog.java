@@ -32,8 +32,8 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 	private String _boxSound = "resources/sounds/wear.wav";
 	private String _spinnerSound = "resources/sounds/strong2.wav"; 
 	
-	public ChangeWeatherDialog(Controller ctrl, ControlPanel controlPanel) {
-		super(null, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
+	public ChangeWeatherDialog(Controller ctrl, Window parent) {
+		super(parent, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
 		_ctrl = ctrl;
 		_roadsComboBox = new JComboBox<>();
 		_weatherComboBox = createWeatherBox();

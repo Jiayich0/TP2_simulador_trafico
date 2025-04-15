@@ -24,9 +24,8 @@ public class ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver 
 	private JSpinner _ticksSpinner;
 	private Controller _ctrl;
 	
-	public ChangeCO2ClassDialog(Controller ctrl, ControlPanel controlPanel) {
-		super(null, "Change CO2 Class", ModalityType.DOCUMENT_MODAL); // Document modal bloquea ventana padre y sus hijos
-		// pasarle null para que lo centre en el medio y no respecto al 'parent'
+	public ChangeCO2ClassDialog(Controller ctrl, Window parent) {
+		super(parent, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
 		_ctrl = ctrl;
 		_vehiclesComboBox = new JComboBox<>();
 		_co2ClassSpinner = createSpinner(new SpinnerNumberModel(0, 0, 10, 1));
