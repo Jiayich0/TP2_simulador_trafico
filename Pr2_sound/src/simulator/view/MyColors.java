@@ -3,7 +3,13 @@ package simulator.view;
 import java.awt.Color;
 
 public class MyColors {
-	
+	/**
+	 * Opciones disponibles:
+	 * 		- default	[gris-azul]			->	null | " " | "" | string no válido
+	 * 		- rosa		[tonos rosa]		->	"rosa"
+	 * 		- verde 	[verde-marrón]		->	"verde"
+	 * 		- hoppip  [paleta del pokemon]	->	"hoppip"
+	 */
 	private static final String _option = " ";
 	
 	public static final Color RED = Color.RED;
@@ -26,24 +32,19 @@ public class MyColors {
     	switch(option) {
     		case "rosa":
     			ELEMENTOS = new Color(0xe021d8);
-    			TEXTO = Color.WHITE;
     		    FONDO1 = new Color(0xffc0ed);
     		    FONDO2 = new Color(0xf658b8);
     		    break;
     		case "verde":
     			ELEMENTOS = new Color(0x7c390c);
-    			TEXTO = Color.WHITE;
     		    FONDO1 = new Color(0xe0fdd6);
     		    FONDO2 = new Color(0x7fec56);
     			break;
     		case "hoppip":
     			ELEMENTOS = new Color(0x669900);
-    			TEXTO = Color.WHITE;
     		    FONDO1 = new Color(0xffc0d);
     		    FONDO2 = new Color(0xff1ac6);
     			break;
     	}
     }
-    
-    
 }
