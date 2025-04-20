@@ -91,7 +91,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	    JButton button = new JButton();
 	    
 	    button.setIcon(new ImageIcon(iconPath));
-	    button.setToolTipText(iconDesc);;
+	    button.setToolTipText(iconDesc);
 	    
 	    button.setBorderPainted(true);		// Pone el borde
 	    button.setFocusPainted(false);		// Quita el recuadro de la imagen al ser seleccionado
