@@ -78,19 +78,20 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     }
 	
 	private void initializeAllButtons() {
-		_loadEventsButton = createButton("resources/icons/open.png");
-        _changeCO2Button = createButton("resources/icons/co2class.png");
-        _changeWeatherButton = createButton("resources/icons/weather.png");
-        _runButton = createButton("resources/icons/run.png");
-        _stopButton = createButton("resources/icons/stop.png");
+		_loadEventsButton = createButton("resources/icons/open.png", "Load events file");
+        _changeCO2Button = createButton("resources/icons/co2class.png", "Change CO2 Class of a Vehicle");
+        _changeWeatherButton = createButton("resources/icons/weather.png", "Change Weather of a Road");
+        _runButton = createButton("resources/icons/run.png", "Run the simulator");
+        _stopButton = createButton("resources/icons/stop.png", "Stop the simulator");
         _ticksSpinner = createSpinner();
-        _exitButton = createButton("resources/icons/exit.png");
+        _exitButton = createButton("resources/icons/exit.png", "Exit the simulator");
 	}
 	
-	private JButton createButton(String iconPath) {
+	private JButton createButton(String iconPath, String iconDesc) {
 	    JButton button = new JButton();
 	    
 	    button.setIcon(new ImageIcon(iconPath));
+	    button.setToolTipText(iconDesc);;
 	    
 	    button.setBorderPainted(true);		// Pone el borde
 	    button.setFocusPainted(false);		// Quita el recuadro de la imagen al ser seleccionado
