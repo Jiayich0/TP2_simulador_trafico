@@ -8,8 +8,6 @@ import simulator.control.Controller;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Event;
 import simulator.model.RoadMap;
-import simulator.model.SetContClassEvent;
-import simulator.model.SetWeatherEvent;
 
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
