@@ -66,20 +66,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 	
 	private void onUpdate(Collection<Event> events) {
-		//_events = new ArrayList<>(events);;
-		// FIXME
-		// Imprime todos los eventos, en cambio, en el ejemplo de la demo solo muestra de los changeCO2 
-		// y changeWeather events. Preguntar al profe si tiene o no que imprimir todos. Tambien
-		// preguntar si se puede usar instanceof, a diferencia de TP1
-
-		
-		_events = new ArrayList<>();;
-		
-		for (Event e : events) {
-	        if (e instanceof SetWeatherEvent || e instanceof SetContClassEvent) {
-	            _events.add(e);
-	        }
-	    }
+		_events = new ArrayList<>(events);;
 		
 		fireTableStructureChanged();
 	}
