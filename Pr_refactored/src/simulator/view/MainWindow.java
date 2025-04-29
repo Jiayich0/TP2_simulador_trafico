@@ -25,8 +25,6 @@ public class MainWindow extends JFrame {
 	public MainWindow(Controller ctrl) {
 		super("Traffic Simulator");
 		_ctrl = ctrl;
-		_ctrl.addObserver(new SimSoundObserver());
-		
 		initGUI();
 		
 		this.setSize(800, 600);

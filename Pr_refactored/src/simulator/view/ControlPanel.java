@@ -38,19 +38,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JSpinner _ticksSpinner;
 	private JButton _exitButton;
 	private boolean _stopped;
-	
-	private String _openSound = "resources/sounds/chest_open.wav";
-	private String _closeSound = "resources/sounds/chest_close.wav";
-	private String _clickSound = "resources/sounds/click.wav";
-	private String _spinnerSound = "resources/sounds/strong2.wav"; 
 
 	ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
-		_ticksSpinner.addChangeListener(e -> {
-			Sound.playSound(_spinnerSound);
-		});
 		_ctrl.addObserver(this);
 	}
 	
@@ -120,10 +112,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		JFileChooser fileChooser = new JFileChooser();
 		
 		_loadEventsButton.addActionListener(e -> {
-			Sound.playSound(_openSound);
 			int select = fileChooser.showOpenDialog(null);
-			Sound.playSound(_closeSound);
-					
+			
 			if (select == JFileChooser.APPROVE_OPTION) {
 				if (fileChooser.getSelectedFile() != null) {
 					try (FileInputStream fileInput = new FileInputStream(fileChooser.getSelectedFile())) {
@@ -145,27 +135,22 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private void changeCO2Button(JToolBar toolBar) {
 		_changeCO2Button.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(_ctrl, SwingUtilities.getWindowAncestor(this));	//Pasa el padre para bloquear
 	        dialog.setVisible(true);
-	        Sound.playSound(_clickSound);
 		});
 		toolBar.add(_changeCO2Button);
 	}
 	
 	private void changeWeatherButton(JToolBar toolBar) {
 		_changeWeatherButton.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			ChangeWeatherDialog dialog = new ChangeWeatherDialog(_ctrl, SwingUtilities.getWindowAncestor(this));
 	        dialog.setVisible(true);
-	        Sound.playSound(_clickSound);
 		});
 		toolBar.add(_changeWeatherButton);
 	}
 	
 	private void exitButton(JToolBar toolBar) {
 		_exitButton.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			UIManager.put("OptionPane.background", MyColors.FONDO2);
 			UIManager.put("Panel.background", MyColors.FONDO2);
 			int result = JOptionPane.showConfirmDialog(
@@ -175,11 +160,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.WARNING_MESSAGE
 			);
-			Sound.playSound(_clickSound);
+			
 			if (result == JOptionPane.YES_OPTION) {
 				System.exit(0);
-			}
-			
+			}			
 		});
 		
 		toolBar.add(_exitButton);
@@ -187,7 +171,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private void stopButton(JToolBar toolBar) {
 		_stopButton.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			_stopped = true;
 		});
 		toolBar.add(_stopButton);
@@ -195,7 +178,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private void runButton(JToolBar toolBar) {
 		_runButton.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			_stopped = false;
 			disableButtons();
 			run_sim((Integer)_ticksSpinner.getValue());
@@ -216,7 +198,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		if (n > 0 && !_stopped) {
 			try {
 				_ctrl.run(1);
-				if(SimSoundObserver.DO_TIME_SLEEP) Thread.sleep(SimSoundObserver.TIME_SLEEP); // Para hacer pruebas FIXME
+				//Thread.sleep(500); // Para hacer pruebas FIXME borrar
 	         	SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "[ERROR] An error occurred during simulation", "Simulation Error", JOptionPane.ERROR_MESSAGE);

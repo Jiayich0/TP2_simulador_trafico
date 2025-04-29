@@ -2,9 +2,6 @@ package simulator.view;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,10 +25,6 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 	private JSpinner _ticksSpinner;
 	private Controller _ctrl;
 	
-	private String _clickSound = "resources/sounds/click.wav";
-	private String _boxSound = "resources/sounds/wear.wav";
-	private String _spinnerSound = "resources/sounds/strong2.wav"; 
-	
 	public ChangeWeatherDialog(Controller ctrl, Window parent) {
 		super(parent, "Change CO2 Class", ModalityType.DOCUMENT_MODAL);
 		_ctrl = ctrl;
@@ -40,8 +33,6 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 		_ticksSpinner = createSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		
 		initGUI();
-		initComboBoxSound();
-		initSpinnerSound();;
 		pack();
 		setLocationRelativeTo(null);
 		
@@ -137,7 +128,6 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 
 	private void okButton(JButton okButton) {
 		okButton.addActionListener(e -> {
-			Sound.playSound(_clickSound);
 			String roadId = (String)_roadsComboBox.getSelectedItem();				
 			Weather weather = Weather.valueOf((String)_weatherComboBox.getSelectedItem());
 			int ticks = (Integer)_ticksSpinner.getValue();
@@ -146,7 +136,6 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 				UIManager.put("OptionPane.background", MyColors.FONDO2);
 				UIManager.put("Panel.background", MyColors.FONDO2);
 				JOptionPane.showMessageDialog(null, "Please select a road", "Input Error", JOptionPane.WARNING_MESSAGE);
-				Sound.playSound(_clickSound);
 				return;
 			}
 			
@@ -157,38 +146,6 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 			_ctrl.addEvent(weatherE);
 
 			dispose();
-		});
-	}
-	
-	private void initComboBoxSound() {
-		_roadsComboBox.addPopupMenuListener(new PopupMenuListener() {
-			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				Sound.playSound(_boxSound);
-			}
-			
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				Sound.playSound(_boxSound);
-			}
-			
-			public void popupMenuCanceled(PopupMenuEvent e) {}
-		});
-		
-		_weatherComboBox.addPopupMenuListener(new PopupMenuListener() {
-			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				Sound.playSound(_boxSound);
-			}
-			
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				Sound.playSound(_boxSound);
-			}
-			
-			public void popupMenuCanceled(PopupMenuEvent e) {}
-		});
-	}
-	
-	private void initSpinnerSound() {
-		_ticksSpinner.addChangeListener(e -> {
-			Sound.playSound(_spinnerSound);
 		});
 	}
 	
