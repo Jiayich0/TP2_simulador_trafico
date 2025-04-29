@@ -52,7 +52,7 @@ public class MyColors {
     		    FONDO1 = new Color(0xfce3a1);
     		    FONDO2 = new Color(0x6c3822);
     			break;
-    		case "verdeAzul":
+    		case "verde2":
     			ELEMENTOS = new Color(0x09345a);
     		    FONDO1 = new Color(0x86d562);
     		    FONDO2 = new Color(0x9aa0a4);
