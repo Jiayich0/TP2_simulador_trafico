@@ -1,0 +1,34 @@
+	
+	
+	Main
+		Factories
+			Builders: 		constructores. De un txt/json lo convierten en una clase, llamando a New/SetXEvent
+			BuilderFactory: junta todos los builders y llama al createInstance de un uilder
+		BatchMode | GuiMode
+			Controller:		encargado de llamar a modelo a través de 'sim' (TrafficSimulator)
+				Simulator:
+					TrafficSimulator:	advance llama a j.advnace y r.advance
+					RoadMap:	lista y mapas de todos los object para buscar, añadir, borrar, etc
+					SimObject: 	
+						Vehicle:	
+						Road:		advance llama a v.advance
+						Junction:	
+					Event: 		NewXEvent | SetXEvent
+						crea SimulatedObject a partir de parámetros y lo añade a RoadMap
+					Strategy: 	DqStrategy | LsStrategy
+					Enum: 		VehicleStatus | Weather
+					Observer:	Observable | TrafficSimObserver
+				Vista:
+					MainWindow
+						ControlPanel: Buttons | Dialog
+						Views
+							TableModels
+							Maps
+						StatusBar
+	
+	
+	Nuevo objeto/evento/estrategia
+		- crear XBuilder (factories)
+		- addBuilder(new XBuilder()) (main)
+		- crear la clase X (extends SimulatedObject)
+		- crear NewXEvent

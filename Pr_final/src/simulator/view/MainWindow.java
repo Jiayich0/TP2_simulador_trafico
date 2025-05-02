@@ -93,7 +93,6 @@ public class MainWindow extends JFrame {
 		addBorder(p, title);
 		
 		// Forzar a que no haya horizontal scroll en los componentes que no sean MapComponent
-		// FIXME Preguntar al profe si se puede usar instanceof, a diferencia de TP1
 		JScrollPane scroll;
 		if (c instanceof MapComponent) {
 		    scroll = new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

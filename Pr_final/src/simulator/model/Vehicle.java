@@ -112,7 +112,7 @@ public class Vehicle extends SimulatedObject {
 		
 		if(_itineraryIndex == _itinerary.size() - 1) {					// Ha lleagdo a su último cruce
 			setStatus(VehicleStatus.ARRIVED);							// También pone _speed a 0
-			if (_road != null) {											// Saca a este vehiculo de la carretera en la que está
+			if (_road != null) {										// Saca a este vehiculo de la carretera en la que está
 		        _road.exit(this);		// Añadido porque si no da error en los Test1 y 2 de Main
 		    }
 			_road = null;

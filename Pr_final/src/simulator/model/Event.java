@@ -47,15 +47,6 @@ public abstract class Event implements Comparable<Event> {
   		
   		return 0;
   	}
-  	/**
-  	 * 	Es lo mismo que:
-  	 * 	if(a < b) return -1
-  	 * 	elsif(a > b) return 1
-  	 * 	elsif(a == b)
-  	 * 		if(c < d) return -1
-  	 *		elif(c > d) return 1
-  	 *		else return 0
-  	 */
   	
   	abstract void execute(RoadMap map);
   	

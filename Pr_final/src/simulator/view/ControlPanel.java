@@ -198,7 +198,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		if (n > 0 && !_stopped) {
 			try {
 				_ctrl.run(1);
-				//Thread.sleep(500); // Para hacer pruebas FIXME borrar
+				//Thread.sleep(500);
 	         	SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "[ERROR] An error occurred during simulation", "Simulation Error", JOptionPane.ERROR_MESSAGE);
@@ -242,36 +242,3 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {}
 
 }
-
-/* TODO: borrar initGUI provisional
- * initgui para poner botones sin accion, para porbar la estructura, borrar cuando se haya terminado la practica
-private void initGUI() {
-	this.setLayout(new BorderLayout());
-	JToolBar toolBar = new JToolBar();
-	toolBar.setFloatable(true);
-	
-
-    _loadEventsButton = createButton("resources/icons/open.png");
-    _changeCO2Button = createButton("resources/icons/co2class.png");
-    _changeWeatherButton = createButton("resources/icons/weather.png");
-    _runButton = createButton("resources/icons/run.png");
-    _stopButton = createButton("resources/icons/stop.png");
-    _ticksSpinner = createSpinner();
-    _exitButton = createButton("resources/icons/exit.png");
-    
-    toolBar.add(_loadEventsButton);
-    toolBar.addSeparator(new Dimension(12, 36));
-	toolBar.add(_changeCO2Button);
-	toolBar.add(_changeWeatherButton);
-	toolBar.addSeparator(new Dimension(12, 36));
-	toolBar.add(_runButton);
-	toolBar.add(_stopButton);
-	toolBar.addSeparator(new Dimension(4, 36));
-	toolBar.add(new JLabel("Ticks: "));
-	toolBar.add(_ticksSpinner);
-	toolBar.add(Box.createHorizontalGlue()); // Empuja el botón a la derecha
-	toolBar.add(_exitButton);
-    
-    this.add(toolBar, BorderLayout.NORTH);
-
-}*/
